@@ -1,39 +1,112 @@
 body {
+    background-color: #1f1f2e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-nav {
-    background-color: #eee;
-    padding: 10px;
-    text-align: center;
-}
-
-main {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 60vh; /* Adjust the height as needed */
+    background-color: #0d0d17;
+    padding: 10px 20px;
 }
 
-.box {
-    width: 100px;
-    height: 100px;
-    background-color: #3498db;
-    margin: 10px;
+.logo-img {
+    max-width: 150px; /* Aangepaste grootte voor het logo */
 }
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #bb86fc;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    
+}
+
+.project {
+    margin: 20px;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+}
+.project img{
+    border: 2px solid #64ffda;
+}
+h3 {
+    margin-top: 10px;
+}
+
+
+/* Dit is voor de registratie */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #1f1f2e;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #64ffda;
+    border-radius: 8px;
+    color: #ffffff;
+    width: 80%;
+}
+
+.close {
+    color: #bb86fc;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ff4081;
+}
+
+
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #1a1a26;
     padding: 10px;
     text-align: center;
+    margin-bottom: 0%;
+}
+
+footer p {
+    margin: 0;
 }

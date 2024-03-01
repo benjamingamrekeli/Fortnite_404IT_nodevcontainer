@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Projecten</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="styles/logo11.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Over Ons</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <section id="myModal" class="modal">
+        <section class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h2>Registreren / Inloggen</h2>
+            <form>
+                <label for="name">Naam:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Wachtwoord:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirmPassword">Bevestig wachtwoord:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                <button type="button" onclick="register()">Registreer</button>
+                <button type="button" onclick="login()">Log in</button>
+            </form>
+        </section>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Jouw Bedrijfsnaam. Alle rechten voorbehouden.</p>
+    </footer>
+
+
+</body>
+</html>
