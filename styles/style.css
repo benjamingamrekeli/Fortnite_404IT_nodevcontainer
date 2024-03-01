@@ -21,6 +21,10 @@ header {
     max-width: 150px; /* Aangepaste grootte voor het logo */
 }
 
+.logo {
+    margin-left: 100px; /* Zodat de fortnite logo mooi in het midden staat*/
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -123,11 +127,22 @@ footer p {
     justify-content: center;
 }
 .personage{
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin: 40px;
+}
+
+.personage h4 {
+    align-self: center;
 }
 
 #avatar-kiezen-titel{
     display: block;
     align-self: center;
+}
+
+.avatar  img{
+    display: block;
+    width: 10vw;
 }
