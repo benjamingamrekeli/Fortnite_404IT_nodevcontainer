@@ -110,3 +110,24 @@ footer {
 footer p {
     margin: 0;
 }
+
+.avatar-kiezen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.personages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.personage{
+    display: block;
+    margin: 40px;
+}
+
+#avatar-kiezen-titel{
+    display: block;
+    align-self: center;
+}
