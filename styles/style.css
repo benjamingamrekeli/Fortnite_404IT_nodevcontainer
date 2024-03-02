@@ -236,3 +236,33 @@ button {
 button:hover {
   transform: scale(1.5);
 }
+
+.errorpage {
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 0, 136),
+    rgb(185, 67, 194)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.errorpage h1 {
+  font-size: 50px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.errorpage button {
+  height: 3rem;
+  width: 10rem;
+}
+
+.errorpage button a {
+  font-size: 16px;
+  font-weight: 700;
+}
