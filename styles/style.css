@@ -43,15 +43,14 @@ nav ul button {
   height: 2rem;
   width: 5rem;
   margin-top: -0.5rem;
-  background-color: cornflowerblue;
   font-weight: 700;
 }
 
 .projects-container {
   display: grid;
   grid-template-areas:
-    'fortnite fifa MTG'
-    'pokemon LOTR legomasters';
+    "fortnite fifa MTG"
+    "pokemon LOTR legomasters";
   justify-content: center;
   margin-top: 5vh;
 }
@@ -59,12 +58,12 @@ nav ul button {
 .project {
   display: flex;
   background-color: rgb(159, 133, 2);
-  background-image: linear-gradient(to top, black , grey);
+  background-image: linear-gradient(to top, black, grey);
   justify-content: center;
   align-items: center;
   margin: 20px;
   text-align: center;
-  transition: transform .2s;
+  transition: transform 0.2s;
   border-radius: 10px;
   width: 25vw;
   height: 30vh;
@@ -79,7 +78,7 @@ img {
   max-width: 300px;
   border-radius: 8px;
 }
-h2{
+h2 {
   text-align: center;
 }
 h3 {
@@ -95,7 +94,6 @@ p a {
 p a:hover {
   color: #ff4081;
 }
-
 
 .fortnite-landingpage {
   display: flex;
@@ -166,7 +164,11 @@ footer p {
 .projects-landingpage {
   display: flex;
   align-items: center;
-  background-image: linear-gradient(to right, rgb(0, 0, 136) , rgb(185, 67, 194));
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 0, 136),
+    rgb(185, 67, 194)
+  );
   color: #ffffff;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -182,11 +184,10 @@ footer p {
   justify-content: center;
   height: 100vh;
 }
-.fill{
+.fill {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
 form {
   background-color: #1f1f2e;
@@ -203,15 +204,13 @@ label {
   display: block;
   margin-bottom: 10px;
 }
-.forum-title{
+.forum-title {
   font-family: "Honk", system-ui;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 50px;
-  font-variation-settings:
-    "MORF" 15,
-    "SHLN" 49.8;
+  font-variation-settings: "MORF" 15, "SHLN" 49.8;
 }
 input {
   width: 98%;
@@ -226,13 +225,14 @@ input {
 button {
   width: 100%;
   padding: 10px;
-  background-color: cornflowerblue;
+  background-image: linear-gradient(to top, black, grey);
   color: #ffffff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.2s;
 }
 
 button:hover {
-  background-color: #0d0d17;
+  transform: scale(1.5);
 }
