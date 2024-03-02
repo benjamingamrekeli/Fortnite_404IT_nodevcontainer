@@ -48,14 +48,30 @@ nav ul button {
 }
 
 .projects-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-areas:
+    'fortnite fifa MTG'
+    'pokemon LOTR legomasters';
   justify-content: center;
+  margin-top: 5vh;
 }
 
 .project {
+  display: flex;
+  background-color: rgb(159, 133, 2);
+  background-image: linear-gradient(to top, black , grey);
+  justify-content: center;
+  align-items: center;
   margin: 20px;
   text-align: center;
+  transition: transform .2s;
+  border-radius: 10px;
+  width: 25vw;
+  height: 30vh;
+}
+
+.project:hover {
+  transform: scale(1.5);
 }
 
 img {
@@ -63,9 +79,7 @@ img {
   max-width: 300px;
   border-radius: 8px;
 }
-.project img {
-  border: 2px solid #64ffda;
-}
+
 h3 {
   margin-top: 10px;
 }
@@ -171,4 +185,16 @@ footer p {
 .avatar img {
   display: block;
   width: 10vw;
+}
+
+.projects-landingpage {
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(to right, rgb(0, 0, 136) , rgb(185, 67, 194));
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  max-height: 100%;
 }
