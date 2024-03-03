@@ -97,9 +97,8 @@ p a:hover {
 
 .fortnite-landingpage {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 67.5vh;
 }
 
@@ -111,10 +110,7 @@ p a:hover {
   background-color: cornflowerblue;
   font-weight: 600;
   font-size: 18px;
-}
-
-.fortnite-landingpage button:nth-child(2) {
-  margin-bottom: 12rem; /* pas deze waarde aan voor gewenste afstand onder de linkse knop */
+  margin: 30px;
 }
 
 footer {
