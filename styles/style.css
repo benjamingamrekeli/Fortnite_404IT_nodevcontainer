@@ -139,12 +139,14 @@ footer p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: baseline;
 }
 .personage {
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin: 40px;
+  width: 20vw;
 }
 
 .personage h4 {
@@ -204,13 +206,14 @@ label {
   display: block;
   margin-bottom: 10px;
 }
-.forum-title {
+.page-title {
   font-family: "Honk", system-ui;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 50px;
   font-variation-settings: "MORF" 15, "SHLN" 49.8;
+  align-self: center;
 }
 input {
   width: 98%;
@@ -265,4 +268,16 @@ button:hover {
 .errorpage button a {
   font-size: 16px;
   font-weight: 700;
+}
+
+.blacklisted-personages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blacklist-buttons {
+  display: grid;
+  column-gap: 20px;
+  grid-template-areas: "aanpassen verwijderen";
 }
