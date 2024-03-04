@@ -103,8 +103,8 @@ p a:hover {
 }
 
 .fortnite-landingpage button {
-  margin: 0 10px; /* voeg wat ruimte tussen de knoppen toe */
-  padding: 15px 20px; /* pas deze waarden aan voor gewenste grootte */
+  margin: 0 10px;
+  padding: 15px 20px;
   width: 10rem;
   height: 5rem;
   background-color: cornflowerblue;
@@ -276,4 +276,29 @@ button:hover {
   display: grid;
   column-gap: 20px;
   grid-template-areas: "aanpassen verwijderen";
+}
+
+/* detailed page (moet nog aangepast worden)*/
+
+.detailed-personage {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  margin: 0 5rem;
+}
+
+.personage-foto {
+  width: 100%;
+}
+
+.detailed-personage h4 {
+  margin-top: 0;
+}
+
+.detailed-personage p {
+  max-width: 100%;
+}
+
+.detailed-personage button {
+  margin-top: 10px;
 }
