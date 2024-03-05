@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/style.css" />
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
+    <title>Detail personage</title>
   </head>
   <body class="detailed-page">
     <header>
@@ -25,23 +28,33 @@
     </header>
 
     <section class="detailed-personage">
-      <h4>Dracula</h4>
-      <img src="styles/dracula.webp" class="personage-foto" />
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati omnis
-        at veritatis debitis rerum quod voluptatum sequi illo modi nesciunt,
-        amet assumenda sunt odit vitae. Eveniet vero perferendis ad unde! Sequi,
-        ex nesciunt corrupti incidunt neque porro error, mollitia id nobis
-        fugiat quaerat, repellendus deserunt doloribus repudiandae fuga.
-        Assumenda et fuga consequuntur aliquam quos quas dolores a inventore
-        doloribus! Cumque! Ullam odio voluptatibus porro iste fuga dolore
-        accusamus ipsum suscipit laborum ratione perferendis, iure sed
-        reiciendis quos. Quasi, sint laudantium aut veritatis hic impedit
-        consequuntur, beatae officiis asperiores, quis quo!
-      </p>
-      <button>Avatar instellen</button>
-      <button>Favoriet toevoegen</button>
-      <button>Blacklisten</button>
+      <h4 class="page-title">Dracula</h4>
+      <div class="personage-detail-container">
+        <img src="styles/dracula.webp"/>
+        <div class="tekst-en-buttons-container">
+          <div>
+            <h3>Backstory</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati omnis
+              at veritatis debitis rerum quod voluptatum sequi illo modi nesciunt,
+              amet assumenda sunt odit vitae. Eveniet vero perferendis ad unde! Sequi,
+              ex nesciunt corrupti incidunt neque porro error, mollitia id nobis
+              fugiat quaerat, repellendus deserunt doloribus repudiandae fuga.
+              Assumenda et fuga consequuntur aliquam quos quas dolores a inventore
+              doloribus! Cumque! Ullam odio voluptatibus porro iste fuga dolore
+              accusamus ipsum suscipit laborum ratione perferendis, iure sed
+              reiciendis quos. Quasi, sint laudantium aut veritatis hic impedit
+              consequuntur, beatae officiis asperiores, quis quo!
+            </p>
+          </div>
+          <div class="buttons-container">
+            <button>Avatar instellen</button>
+            <button>Favoriet toevoegen</button>
+            <button>Blacklisten</button>
+            <input type="text">
+          </div>
+        </div>
+      </div>
     </section>
     <footer>
       <p>&copy; 2024 Jouw Bedrijfsnaam. Alle rechten voorbehouden.</p>
