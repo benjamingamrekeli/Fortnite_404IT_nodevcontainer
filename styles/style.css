@@ -130,6 +130,7 @@ p a:hover {
   font-weight: 600;
   font-size: 18px;
   margin: 30px;
+  cursor: pointer;
 }
 
 footer {
@@ -353,4 +354,31 @@ button:hover {
 
 .detailed-personage button {
   margin-top: 10px;
+}
+
+.skins button,
+.wapens button,
+.emotes button,
+.gebruikte-items button {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.detailedfavo-personage {
+  max-width: 75%;
+  margin: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 300px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
 }
