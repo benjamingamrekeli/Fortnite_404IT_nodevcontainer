@@ -356,6 +356,9 @@ button:hover {
   margin-top: 10px;
 }
 
+.items {
+  grid-area: "items";
+}
 .skins button,
 .wapens button,
 .emotes button,
@@ -367,8 +370,24 @@ button:hover {
 }
 
 .detailedfavo-personage {
-  max-width: 75%;
-  margin: auto;
+  display: block;
+  margin: 150px;
+  margin-top: 0px;
+}
+
+.favopersonage-detail-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.foto-en-tekst {
+  max-width: 30vw;
+}
+
+
+
+.detailedfavo-personage img {
+  max-width: 100%;
 }
 
 table {
