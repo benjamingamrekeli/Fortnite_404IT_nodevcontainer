@@ -1,16 +1,18 @@
 @font-face {
-  font-family: 'fortniteFont';
-  src: url(/styles/fonts/fortnite.otf) format('opentype');
+  font-family: "fortniteFont";
+  src: url(/styles/fonts/fortnite.otf) format("opentype");
 }
 
-p{
-  font-family: 'fortniteFont';
+p {
+  font-family: "fortniteFont";
   letter-spacing: 2px;
   font-size: x-large;
 }
 
-h2,h3,h4{
-  font-family: 'fortniteFont';
+h2,
+h3,
+h4 {
+  font-family: "fortniteFont";
   letter-spacing: 2px;
   font-size: xx-large;
 }
@@ -204,6 +206,13 @@ footer p {
   flex-direction: column;
   justify-content: center;
 }
+
+.fill .logo {
+  margin: auto;
+}
+.login-container {
+  margin-bottom: 8.4%;
+}
 form {
   background-color: #1f1f2e;
   padding: 20px;
@@ -300,10 +309,10 @@ button:hover {
 .detailed-personage {
   display: flex;
   flex-direction: column;
-  margin:50px ;
+  margin: 50px;
 }
 
-.personage-detail-container{
+.personage-detail-container {
   display: grid;
   grid-template-areas: "foto .";
   gap: 30px;
@@ -312,7 +321,6 @@ button:hover {
 .tekst-en-buttons-container {
   display: grid;
   grid-template-rows: auto auto;
-
 }
 
 .detailed-personage img {
@@ -331,7 +339,7 @@ button:hover {
   transition: transform 0.2s;
 }
 
-.personage-foto:hover{
+.personage-foto:hover {
   transform: scale(1.5);
 }
 
