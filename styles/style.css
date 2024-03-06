@@ -163,6 +163,7 @@ footer p {
   flex-direction: column;
   margin: 40px;
   width: 20vw;
+  color:white;
 }
 
 .personage h4 {
@@ -373,6 +374,33 @@ button:hover {
   display: block;
   margin: 150px;
   margin-top: 0px;
+}
+
+.fight {
+  display: grid;
+  grid-template-columns: auto auto;
+  height: 80px;
+  gap: 20px;
+}
+
+.fight button {
+  border-radius: 0px;
+  background-image: none;
+  transition: transform 0.1s;
+  font-family: "fortniteFont";
+  font-size: xx-large;
+}
+
+.fight button:hover {
+  transform: scale(1.2);
+}
+
+.win {
+  background-color: green;
+}
+
+.lose {
+  background-color: red;
 }
 
 .favopersonage-detail-container {
