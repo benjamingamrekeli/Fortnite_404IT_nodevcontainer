@@ -3,18 +3,16 @@
   src: url(/styles/fonts/fortnite.otf) format("opentype");
 }
 
-p {
-  font-family: "fortniteFont";
-  letter-spacing: 2px;
-  font-size: x-large;
-}
-
 h2,
 h3,
 h4 {
   font-family: "fortniteFont";
   letter-spacing: 2px;
   font-size: xx-large;
+}
+
+.projecten-title{
+  color: black;
 }
 
 body {
@@ -74,6 +72,8 @@ nav ul button {
   margin-top: 5vh;
 }
 
+
+
 .project {
   display: flex;
   background-color: rgb(159, 133, 2);
@@ -102,6 +102,7 @@ h2 {
 }
 h3 {
   margin-top: 10px;
+  margin-bottom: 0px;
 }
 
 /* Dit is voor de registratie */
@@ -183,11 +184,7 @@ footer p {
 .projects-landingpage {
   display: flex;
   align-items: center;
-  background-image: linear-gradient(
-    to right,
-    rgb(0, 0, 136),
-    rgb(185, 67, 194)
-  );
+  background-color: lightgrey;
   color: #ffffff;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -210,10 +207,13 @@ footer p {
 }
 
 .fill .logo {
+
   margin: auto;
 }
 .login-container {
-  margin-bottom: 8.4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 form {
   background-color: #1f1f2e;
@@ -221,9 +221,9 @@ form {
   border: 1px solid #64ffda;
   border-radius: 8px;
   color: #ffffff;
-  width: 80%;
+  width: 40%;
   margin-top: 20px;
-  margin-left: 120px;
+  margin-bottom: 50px;
 }
 
 label {
@@ -245,8 +245,8 @@ input {
   margin-bottom: 15px;
   border: 1px solid #64ffda;
   border-radius: 4px;
-  background-color: #1f1f2e;
-  color: #ffffff;
+  background-color: white;
+  color: black;
 }
 
 button {
@@ -258,10 +258,11 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: transform 0.2s;
+  font-size: large;
 }
 
 button:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 .errorpage {
@@ -298,6 +299,15 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.blacklisted-personages a{
+  transition: transform 0.1s;
+  margin-left: 30px;
+}
+
+.blacklisted-personages a:hover {
+  transform: scale(1.5);
 }
 
 .blacklist-buttons {
@@ -342,7 +352,8 @@ button:hover {
 }
 
 .personage-foto:hover {
-  transform: scale(1.5);
+  transform: scale(1.15);
+  box-shadow: 0px 0px 20px white;
 }
 
 .detailed-personage h4 {
@@ -428,4 +439,40 @@ td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+}
+
+.reden {
+  margin-top: 25px;
+}
+
+.signup-container, .login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vuilbakje {
+  max-width: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .projects-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .project {
+    width: 80vw;
+  }
+  .project:hover {
+    transform: none;
+  }
+  button:hover {
+    transform: none;
+  }
+  form{
+    width: 80vw;
+    margin-bottom: 5vh;
+    padding: auto;
+  }
+
 }
