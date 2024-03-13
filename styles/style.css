@@ -34,35 +34,54 @@ header {
   align-items: center;
   background-color: #0d0d17;
   padding: 10px 20px;
-}
-
-.logo-img {
-  max-width: 150px; /* Aangepaste grootte voor het logo */
+  max-height: 10vh;
 }
 
 .logo {
-  margin-left: 100px; /* Zodat de fortnite logo mooi in het midden staat*/
+  max-width: 180px; /* Aangepaste grootte voor het logo */
+}
+
+nav {
+  display: flex;
 }
 
 nav ul {
   list-style: none;
   display: flex;
+  margin-left: 20rem;
 }
 
 nav ul li {
   margin-right: 20px;
+  padding: 2px 10px;
+  border-radius: 2rem;
 }
 
+nav ul li a,
+nav button a {
+  color: grey;
+}
+
+nav ul li:hover,
+nav ul li:hover a {
+  color: white;
+  background-color: grey;
+}
+
+nav button:hover a {
+  color: white;
+}
 a {
   text-decoration: none;
   color: #bb86fc;
 }
 
-nav ul button {
+nav button {
   height: 2rem;
   width: 5rem;
-  margin-top: -0.5rem;
+  margin-top: 0.7rem;
   font-weight: 700;
+  margin-left: 20rem;
 }
 
 .projects-container {
@@ -138,7 +157,7 @@ footer {
   padding: 10px;
   text-align: center;
   margin-bottom: 0%;
-  margin-top: auto;
+  margin-top: 14vh;
 }
 
 footer p {
@@ -163,7 +182,7 @@ footer p {
   flex-direction: column;
   margin: 40px;
   width: 20vw;
-  color:white;
+  color: white;
 }
 
 .personage h4 {
@@ -177,7 +196,8 @@ footer p {
 
 .avatar img {
   display: block;
-  width: 10vw;
+  width: 5vw;
+  border-radius: 50%;
 }
 
 .projects-landingpage {
@@ -411,8 +431,6 @@ button:hover {
 .foto-en-tekst {
   max-width: 30vw;
 }
-
-
 
 .detailedfavo-personage img {
   max-width: 100%;
