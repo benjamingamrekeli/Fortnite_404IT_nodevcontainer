@@ -10,6 +10,14 @@ h4 {
   letter-spacing: 2px;
   font-size: xx-large;
 }
+h5{
+  font-size: x-large;
+  margin-bottom: 0;
+}
+
+.page-title{
+  margin-bottom: 0;
+}
 
 .projecten-title{
   color: black;
@@ -139,6 +147,7 @@ p a:hover {
   flex-direction: column;
   align-items: center;
   height: 67.5vh;
+  
 }
 
 .fortnite-landingpage button {
@@ -165,7 +174,7 @@ footer p {
   margin: 0;
 }
 
-.avatar-kiezen {
+.avatar-kiezen, .favoriete-personages, .blacklisted-personages {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -187,11 +196,6 @@ footer p {
 }
 
 .personage h4 {
-  align-self: center;
-}
-
-#avatar-kiezen-titel {
-  display: block;
   align-self: center;
 }
 
@@ -315,12 +319,6 @@ button:hover {
   font-weight: 700;
 }
 
-.blacklisted-personages {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .blacklisted-personages a{
   transition: transform 0.1s;
   margin-left: 30px;
@@ -341,13 +339,15 @@ button:hover {
 .detailed-personage {
   display: flex;
   flex-direction: column;
-  margin: 50px;
 }
 
 .personage-detail-container {
   display: grid;
   grid-template-areas: "foto .";
   gap: 30px;
+  margin: 100px;
+  margin-top: 60px;
+  margin-bottom: 0;
 }
 
 .tekst-en-buttons-container {
@@ -423,7 +423,7 @@ button:hover {
 }
 
 .fight button:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .win {
@@ -436,11 +436,16 @@ button:hover {
 
 .favopersonage-detail-container {
   display: grid;
+  margin-top: 50px;
   grid-template-columns: auto auto;
 }
 
 .foto-en-tekst {
   max-width: 30vw;
+}
+
+.mobiel-notities{
+  display: none;
 }
 
 .detailedfavo-personage img {
@@ -492,5 +497,65 @@ td {
     margin-bottom: 5vh;
     padding: auto;
   }
-
+  .fortnite-landingpage div {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .fortnite-landingpage button {
+    width: 60vw;
+    height: 100px;
+    margin-top: 10px;
+    padding: 40px;
+  }
+  .personage{
+    width: 60vw;
+    align-items: center;
+  }
+  .personage-foto:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .blacklisted-personages a:hover {
+    transform: none;
+  }
+  .vuilbakje {
+    max-width: 70px;
+  }
+  .personage-detail-container {
+    grid-template-areas: ".";
+    margin: 60px;
+  }
+  .personage-detail-container img {
+    max-width: 100%;
+  }
+  .buttons-container{
+    grid-template-columns: auto;
+    gap: 5px;
+  }
+  .buttons-container button{
+    height: 50px;
+  }
+  .buttons-container input{
+    margin-top: 20px;
+    height: 100px;
+    width: 95.5%;
+  }
+  .favopersonage-detail-container{
+    grid-template-columns: auto;
+    justify-content: center;
+  }
+  .desktop-notities {
+    display: none;
+  }
+  .mobiel-notities {
+    display: block;
+  }
+  .stats{
+    display: flex;
+    justify-content: center;
+  }
+  .foto-en-tekst {
+    max-width: 100%;
+  }
 }
