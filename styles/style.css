@@ -155,11 +155,14 @@ p a:hover {
   padding: 15px 20px;
   width: 10rem;
   height: 5rem;
-  background-color: cornflowerblue;
   font-weight: 600;
   font-size: 18px;
   margin: 30px;
   cursor: pointer;
+}
+
+.fortnite-landingpage button a {
+  color: white;
 }
 
 footer {
@@ -218,6 +221,14 @@ footer p {
   padding: 0;
   flex-direction: column;
   max-height: 100%;
+  background: none;
+}
+
+.projects-landingpage h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: black;
+  margin-top: 2rem;
 }
 
 .container {
@@ -234,12 +245,14 @@ footer p {
 }
 
 .fill .logo {
-  margin: auto;
+  margin: 0 auto;
 }
+
 .login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 5.09rem;
 }
 form {
   background-color: #1f1f2e;
