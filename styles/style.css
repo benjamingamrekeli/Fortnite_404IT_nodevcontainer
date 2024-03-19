@@ -20,7 +20,7 @@ h5 {
 }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
     url("/styles/fortnite-background.png");
   background-attachment: fixed;
   background-size: cover;
@@ -78,9 +78,20 @@ nav ul li:hover a {
 nav button:hover a {
   color: white;
 }
+
 a {
   text-decoration: none;
-  color: #bb86fc;
+  color: white;
+}
+
+.pagina-uitleg {
+  text-align: justify;
+  font-size: x-large;
+  width: 40%;
+}
+
+.fortnite-landingpage a {
+  font-size: x-large;
 }
 
 nav button {
@@ -183,6 +194,7 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .personages {
@@ -260,7 +272,7 @@ form {
   border: 1px solid #64ffda;
   border-radius: 8px;
   color: #ffffff;
-  width: 40%;
+  width: 25%;
   margin-top: 20px;
   margin-bottom: 50px;
 }
@@ -298,12 +310,16 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: transform 0.2s;
-  font-size: large;
+  font-family: "fortniteFont";
+  font-size: x-large;
+  letter-spacing: 2px;
 }
 
 button:hover {
   transform: scale(1.2);
 }
+
+
 
 .errorpage {
   background: none;
@@ -377,6 +393,11 @@ button:hover {
   grid-template-rows: auto auto;
 }
 
+.tekst-en-buttons-container h3{
+  margin-bottom: 10px;
+  display: none;
+}
+
 .detailed-personage img {
   display: block;
   max-width: 30vw;
@@ -385,7 +406,17 @@ button:hover {
 .buttons-container {
   display: grid;
   grid-template-columns: auto auto;
-  gap: 20px;
+  width: 50%
+}
+
+.buttons-container button {
+  width: 80%;
+  height: 70%;
+}
+
+.blacklist-reden {
+  margin-top: 10px;
+  height: 40px;
 }
 
 .personage-foto {
@@ -396,6 +427,11 @@ button:hover {
 .personage-foto:hover {
   transform: scale(1.15);
   box-shadow: 0px 0px 20px white;
+}
+
+.blacklisted-personages .personage-foto:hover{
+  transform: none;
+  box-shadow: none;
 }
 
 .detailed-personage h4 {
@@ -479,6 +515,11 @@ button:hover {
   max-width: 30vw;
 }
 
+.desktop-notities h5 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
 .mobiel-notities {
   display: none;
 }
@@ -510,11 +551,25 @@ td {
   align-items: center;
 }
 
+.register-button,
+.login-button {
+  margin-top: 15px;
+}
+
+.register-button:hover,
+.login-button:hover {
+  transform: none;
+  box-shadow: 0px 0px 10px white;
+}
+
 .vuilbakje {
   max-width: 50px;
 }
 
 @media screen and (max-width: 600px) {
+  .pagina-uitleg {
+    width: 80%;
+  }
   .projects-container {
     display: flex;
     flex-wrap: wrap;
@@ -564,12 +619,24 @@ td {
   .personage-detail-container img {
     max-width: 100%;
   }
+
+  .foto-en-tekst p {
+    margin-bottom: 20px;
+  }
+  .items-en-stats h4 {
+    margin-bottom: 20px;
+  }
+  .mobiel-notities {
+    margin-top: 20px;
+  }
   .buttons-container {
     grid-template-columns: auto;
     gap: 5px;
+    width: 100%;
   }
   .buttons-container button {
     height: 50px;
+    width: 100%;
   }
   .buttons-container input {
     margin-top: 20px;
