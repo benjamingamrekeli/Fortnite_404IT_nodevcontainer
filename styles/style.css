@@ -429,6 +429,19 @@ button:hover {
   margin-top: 0px;
 }
 
+.battles-en-stats {
+  margin-top: 5rem;
+}
+.skins,
+.wapens,
+.emotes {
+  margin-bottom: 2rem;
+}
+
+.stats {
+  margin-bottom: 3rem;
+}
+
 .fight {
   display: grid;
   grid-template-columns: auto auto;
