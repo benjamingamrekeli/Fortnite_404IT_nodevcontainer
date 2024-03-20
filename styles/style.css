@@ -268,6 +268,16 @@ footer p {
   border-radius: 50%;
 }
 
+.mobile-avatar img {
+  display: block;
+  width: 13vw;
+  border-radius: 50%;
+}
+
+.mobile-avatar {
+  display: none;
+}
+
 .projects-landingpage {
   display: flex;
   align-items: center;
@@ -618,6 +628,11 @@ td {
 @media screen and (max-width: 600px) {
   .desktop-links, .desktop-logout, .avatar{
     display: none;
+  }
+
+  .mobile-avatar {
+    display: block;
+    position: absolute;
   }
 
   .logo {
