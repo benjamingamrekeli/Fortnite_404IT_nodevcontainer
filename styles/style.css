@@ -59,13 +59,15 @@ nav ul {
 }
 
 nav ul li {
+  display: flex;
   margin-right: 20px;
-  padding: 2px 10px;
+  padding: 3px 10px;
   border-radius: 2rem;
+  align-items: center;
+  text-align: center;
 }
 
-nav ul li a,
-nav button a {
+nav ul li a {
   color: grey;
 }
 
@@ -75,14 +77,65 @@ nav ul li:hover a {
   background-color: grey;
 }
 
+
+nav button a{
+  color: rgb(239, 239, 0);
+}
+
 nav button:hover a {
   color: white;
+}
+
+nav button {
+  height: 2rem;
+  width: 10rem;
+  margin-top: 0.7rem;
+  font-weight: 700;
+  margin-left: 13rem;
+  margin-right: 2rem;
 }
 
 a {
   text-decoration: none;
   color: white;
 }
+
+.menu-toggle {
+  display: none;
+}
+
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.btn-line {
+  width: 30px;
+  height: 4px;
+  background-color: grey;
+  margin: 3px 0;
+}
+
+.menu {
+  display: none;
+}
+
+.menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-items li {
+  margin-right: 20px;
+}
+
+.menu-items li a {
+  color: #333;
+  text-decoration: none;
+}
+
 
 .pagina-uitleg {
   text-align: justify;
@@ -94,14 +147,6 @@ a {
   font-size: x-large;
 }
 
-nav button {
-  height: 2rem;
-  width: 7rem;
-  margin-top: 0.7rem;
-  font-weight: 700;
-  margin-left: 18rem;
-  margin-right: 2rem;
-}
 
 .projects-container {
   display: grid;
@@ -256,7 +301,7 @@ footer p {
   justify-content: center;
 }
 
-.fill .logo {
+.fill {
   margin: 0 auto;
 }
 
@@ -449,14 +494,18 @@ button:hover {
 .items {
   grid-area: "items";
 }
-.skins button,
-.wapens button,
-.emotes button,
-.gebruikte-items button {
+
+.items img, .gebruikte-items button {
   width: 75px;
   height: 75px;
+  margin: 3px;
   border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.items img:hover {
+  transform: scale(1.2);
 }
 
 .detailedfavo-personage {
@@ -567,6 +616,44 @@ td {
 }
 
 @media screen and (max-width: 600px) {
+  .desktop-links, .desktop-logout, .avatar{
+    display: none;
+  }
+
+  .logo {
+    margin-left: 30%;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .menu-toggle:checked ~ .menu {
+    display: block;
+    background-color: rgb(192, 192, 192);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+  }
+
+  .menu-items {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu-items li {
+    margin: 10px 0;
+    font-size: larger;
+    display: flex;
+    padding: auto;
+    border-radius: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+  }
   .pagina-uitleg {
     width: 80%;
   }
@@ -596,7 +683,7 @@ td {
     width: 60vw;
     height: 100px;
     margin-top: 10px;
-    padding: 40px;
+    padding: 30px;
   }
   .personage {
     width: 60vw;
@@ -643,9 +730,19 @@ td {
     height: 100px;
     width: 95.5%;
   }
+
+  .buttons-container p {
+    margin-top: 20px;
+  }
   .favopersonage-detail-container {
     grid-template-columns: auto;
     justify-content: center;
+  }
+
+  .detailedfavo-personage .page-title{
+    margin: auto;
+    margin-top: 40px;
+
   }
   .desktop-notities {
     display: none;
