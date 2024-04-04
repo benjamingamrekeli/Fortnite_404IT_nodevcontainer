@@ -1,6 +1,6 @@
 @font-face {
   font-family: "fortniteFont";
-  src: url(/styles/fonts/fortnite.otf) format("opentype");
+  src: url(/fonts/fortnite.otf) format("opentype");
 }
 
 h2,
@@ -21,7 +21,7 @@ h5 {
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url("/styles/fortnite-background.png");
+    url("/images/fortnite-background.png");
   background-attachment: fixed;
   background-size: cover;
   background-color: #1f1f2e;
