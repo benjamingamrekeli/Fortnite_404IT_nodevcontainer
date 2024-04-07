@@ -44,7 +44,7 @@ header {
 }
 
 .logo {
-  max-width: 180px; /* Aangepaste grootte voor het logo */
+  max-width: 180px; 
 }
 
 nav {
@@ -68,21 +68,16 @@ nav ul li {
 }
 
 nav ul li a {
-  color: grey;
+  color: white;
 }
 
 nav ul li:hover,
 nav ul li:hover a {
-  color: white;
-  background-color: grey;
+  color: grey;
+  background-color: white;
 }
-
 
 nav button a{
-  color: rgb(239, 239, 0);
-}
-
-nav button:hover a {
   color: white;
 }
 
@@ -93,6 +88,7 @@ nav button {
   font-weight: 700;
   margin-left: 13rem;
   margin-right: 2rem;
+  padding: 0.5rem 0 2rem;
 }
 
 a {
@@ -624,6 +620,10 @@ td {
   max-width: 50px;
 }
 
+p {
+  line-height: 1.5rem;
+}
+
 @media screen and (max-width: 600px) {
   .desktop-links, .desktop-logout, .avatar{
     display: none;
@@ -702,6 +702,9 @@ td {
   .personage {
     width: 60vw;
     align-items: center;
+  }
+  .personage h4 {
+    margin: 3rem 0 1.5rem;
   }
   .personage-foto:hover {
     transform: none;
