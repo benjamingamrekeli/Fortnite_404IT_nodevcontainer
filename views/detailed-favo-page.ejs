@@ -1,22 +1,16 @@
 <%- include("partials/header") %>
 <section class="detailedfavo-personage">
-    <h2 class="page-title">Dracula</h2>
+    <h2 class="page-title"><%= sessionPersonageFavoDetail.naam %></h2>
     <article class="favopersonage-detail-container">
       <div class="foto-en-tekst">
-        <img src="/images/dracula.webp"/>
+        <img src="<%= sessionPersonageFavoDetail.foto %>"/>
         <h3>Achtergrondverhaal</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          omnis at veritatis debitis rerum quod voluptatum sequi illo modi
-          nesciunt, amet assumenda sunt odit vitae. Eveniet vero perferendis
-          ad unde! Sequi, ex nesciunt corrupti incidunt neque porro error,
-          mollitia id nobis fugiat quaerat, repellendus deserunt doloribus
-          repudiandae fuga. Assumenda et fuga consequuntur aliquam quos quas
-          dolores a inventore doloribus!
+          <%= sessionPersonageFavoDetail.biografie %>
         </p>
         <div class="desktop-notities">
           <h5>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"></textarea>
+          <textarea name="" id="" cols="50" rows="10"><%= sessionPersonageFavoDetail.notities %></textarea>
         </div>
       </div>
       <div class="items-en-stats">
@@ -45,13 +39,13 @@
           </div>
           <h4>Gebruikte items</h4>
           <div class="gebruikte-items">
-            <img src="/images/gebruikte-wapen.jpg" alt="Gebruikte wapen">
-            <img src="/images/vraagteken.png" alt="?">
+            <img src="<%= sessionPersonageFavoDetail.gebruikteItems[0] %>" alt="">
+            <img src="<%= sessionPersonageFavoDetail.gebruikteItems[1] %>" alt="">
           </div>
         </div>
         <div class="mobiel-notities">
           <h4>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"></textarea>
+          <textarea name="" id="" cols="50" rows="10"><%= sessionPersonageFavoDetail.notities %></textarea>
         </div>
         
         <div class="battles-en-stats">
@@ -66,8 +60,8 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>13</td>
-                  <td>7</td>
+                  <td><%= sessionPersonageFavoDetail.stats[0] %></td>
+                  <td><%= sessionPersonageFavoDetail.stats[1] %></td>
                 </tr>
               </tbody>
             </table>

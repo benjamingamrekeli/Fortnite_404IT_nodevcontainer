@@ -1,22 +1,13 @@
 <%- include("partials/header") %>
 <section class="detailed-personage">
-    <h2 class="page-title">Dracula</h2>
+    <h2 class="page-title"><%= sessionPersonageAvatarDetail.naam %></h2>
     <article class="personage-detail-container">
-      <img src="/images/dracula.webp"/>
+      <img src="<%= sessionPersonageAvatarDetail.foto %>"/>
       <div class="tekst-en-buttons-container">
         <div>
           <h3>Achtergrondverhaal</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati omnis
-            at veritatis debitis rerum quod voluptatum sequi illo modi nesciunt,
-            amet assumenda sunt odit vitae. Eveniet vero perferendis ad unde! Sequi,
-            ex nesciunt corrupti incidunt neque porro error, mollitia id nobis
-            fugiat quaerat, repellendus deserunt doloribus repudiandae fuga.
-            Assumenda et fuga consequuntur aliquam quos quas dolores a inventore
-            doloribus! Cumque! Ullam odio voluptatibus porro iste fuga dolore
-            accusamus ipsum suscipit laborum ratione perferendis, iure sed
-            reiciendis quos. Quasi, sint laudantium aut veritatis hic impedit
-            consequuntur, beatae officiis asperiores, quis quo!
+            <%= sessionPersonageAvatarDetail.biografie %>
           </p>
         </div>
         <div class="buttons-container">
