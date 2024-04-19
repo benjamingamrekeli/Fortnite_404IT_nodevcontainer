@@ -1,21 +1,21 @@
 <%- include("partials/guest-header") %>
 <div class="signup-container">
     <h2 class="page-title">Registreren</h2>
-    <form>
-      <label for="new-username">Gebruikersnaam:</label>
-      <input type="text" id="new-username" name="new-username" required />
+    <form action="signup" method="post">
+      <label for="newusername">Gebruikersnaam:</label>
+      <input type="text" id="newusername" name="newusername" required />
 
-      <label for="new-email">E-mail:</label>
-      <input type="email" id="new-email" name="new-email" required />
+      <label for="newemail">E-mail:</label>
+      <input type="email" id="new-email" name="newemail" required />
 
-      <label for="new-password">Wachtwoord:</label>
-      <input type="password" id="new-password" name="new-password" required />
+      <label for="newpassword">Wachtwoord:</label>
+      <input type="password" id="newpassword" name="newpassword" required />
 
-      <label for="confirm-password">Wachtwoord bevestigen:</label>
+      <label for="confirmpassword">Wachtwoord bevestigen:</label>
       <input
         type="password"
-        id="confirm-password"
-        name="confirm-password"
+        id="confirmpassword"
+        name="confirmpassword"
         required
       />
 

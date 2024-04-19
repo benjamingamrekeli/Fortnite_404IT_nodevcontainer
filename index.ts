@@ -1,6 +1,8 @@
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 
+// import session from "express-session";
+
 //express setup
 const app = express();
 app.set("view engine", "ejs");
@@ -22,12 +24,46 @@ interface Personage {
 
 let sessionPersonages:Personage[] = [];
 
+/* app.use(session({
+    secret: "Isgeheim",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+}));
+
+declare module 'express-session' {
+    export interface SessionData {
+        user: Profile
+        successMessage?: string;
+    }
+} */
+
+
+
 interface Profile {
+    _id?: ObjectId,
     id: number,
     username: string,
     email: string,
     password: string
 }
+
+let profiles: Profile[] = [];
+
+const uri = 'mongodb+srv://mohammedelk:mohammedElk@cluster0.7z5asz7.mongodb.net/?retryWrites=true&w=majority';
+
+const client = new MongoClient(uri);
+
+let clientConnection = async () => {
+    try {
+        await client.connect();
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
 
 // Tijdelijke profiel om te kunnen inloggen om frontend te bekijken bij aanpassingen
 const profile1: Profile = {
@@ -97,14 +133,53 @@ app.post("/login", async (req, res) => {
     const uName = req.body.username;
     const password = req.body.password;
 
-    if (uName == profile1.username && password == profile1.password) {
-        res.redirect("/fortnite-landingpage");
+    profiles = await client.db("Fortnitedb").collection("users").find<Profile>({}).toArray();
+
+    if (uName && password) {
+        const user = profiles.find((profile) => profile.username === uName);
+        if (user) {
+            if (user.password === password) {
+                res.redirect("/fortnite-landingpage");
+            }
+            else {
+                res.render('login', {
+                    profiles: profiles,
+                    message: "Verkeerde wachtwoord!"
+                })
+            }
+        }
     }
 })
 
 app.get("/sign-up", async (req, res) => {
     res.render("sign-up");
 });
+
+app.post("/signup", async (req, res) => {
+    const uName = req.body.newusername;
+    const newEmail = req.body.newemail;
+    const newpassword = req.body.newpassword;
+    const confirmPassword = req.body.confirmpassword;
+
+    let nextId: number;
+
+    let user: Profile;
+
+    if (newpassword == confirmPassword && uName != "" && newEmail != "" && newpassword != "") {
+        nextId = profiles.length + 1;
+        user = {
+            id: nextId++,
+            username: uName,
+            email: newEmail,
+            password: confirmPassword
+        }
+        profiles.push(user);
+        client.db("Fortnitedb").collection("users").insertOne(user);
+        res.redirect("/log-in");
+    } else {
+        return res.status(404).send('Gebruiker niet gevonden');
+    }
+})
 
 app.get("/error-page", async (req, res) => {
     res.render("error-page")
