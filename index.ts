@@ -1,7 +1,11 @@
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 
-// import session from "express-session";
+//mongoDb setup
+const uri = 'mongodb+srv://mohammedelk:mohammedElk@cluster0.7z5asz7.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(uri);
 
 //express setup
 const app = express();
@@ -10,6 +14,19 @@ app.set("port", 3000);
 app.use(express.static('public'));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: "Isgeheim",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+    store: MongoStore.create({client})
+}));
+
+declare module "express-session" {
+    export interface SessionData {
+        userId:number;
+    }
+}
 
 interface Personage {
     _id?:ObjectId,
@@ -24,35 +41,16 @@ interface Personage {
 
 let sessionPersonages:Personage[] = [];
 
-/* app.use(session({
-    secret: "Isgeheim",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
-}));
-
-declare module 'express-session' {
-    export interface SessionData {
-        user: Profile
-        successMessage?: string;
-    }
-} */
-
-
-
 interface Profile {
     _id?: ObjectId,
     id: number,
     username: string,
     email: string,
-    password: string
+    password: string,
+    sessionPersonages:Personage[]
 }
 
 let profiles: Profile[] = [];
-
-const uri = 'mongodb+srv://mohammedelk:mohammedElk@cluster0.7z5asz7.mongodb.net/?retryWrites=true&w=majority';
-
-const client = new MongoClient(uri);
 
 let clientConnection = async () => {
     try {
@@ -64,21 +62,24 @@ let clientConnection = async () => {
     }
 }
 
-
 // Tijdelijke profiel om te kunnen inloggen om frontend te bekijken bij aanpassingen
-const profile1: Profile = {
-    id: 1,
-    username: "moben",
-    email: "moben@gmail.com",
-    password: "Moben123"
-}
+// const profile1: Profile = {
+//     id: 1,
+//     username: "moben",
+//     email: "moben@gmail.com",
+//     password: "Moben123"
+// }
 
 app.get("/", async (req, res) => {
     res.render("projects-landingpage");
 });
 
 app.get("/fortnite-landingpage", async (req, res) => {
-    res.render("fortnite-landingpage");
+    if (req.session.userId){
+        res.render("fortnite-landingpage");
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/avatar-kiezen", async (req, res) => {
@@ -92,22 +93,45 @@ app.get("/avatar-kiezen", async (req, res) => {
     //     stats: [5,7],
     //     gebruikteItems:["",""]
     // }
-
-    res.render("avatar-kiezen", {sessionPersonages});
+    if (req.session.userId){
+        const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
+        if (user){
+            res.render("avatar-kiezen", {sessionPersonages: user.sessionPersonages});
+        }
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/blacklisted-personages", async (req, res) => {
-    res.render("blacklisted-personages");
+    if (req.session.userId){
+        res.render("blacklisted-personages");
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/detailed-avatar-page/:id", async (req, res) => {
-    const sessionPersonageAvatarDetail: Personage = sessionPersonages[parseInt(req.params.id) -1];
-    res.render("detailed-avatar-page", {sessionPersonageAvatarDetail});
+    if (req.session.userId){
+        const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
+        if (user){
+            const sessionPersonageAvatarDetail: Personage = user.sessionPersonages[parseInt(req.params.id) -1];
+            res.render("detailed-avatar-page", {sessionPersonageAvatarDetail});
+        }
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/favoriete-personages", async (req, res) => {
-
-    res.render("favoriete-personages", {sessionPersonages});
+    if (req.session.userId){
+        const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
+        if (user){
+            res.render("favoriete-personages", {sessionPersonages:user.sessionPersonages});
+        }
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/detailed-favo-page/:id", async (req, res) => {
@@ -121,15 +145,22 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
     //     stats: [5,7],
     //     gebruikteItems:["",""]
     // }
-    const sessionPersonageFavoDetail: Personage = sessionPersonages[parseInt(req.params.id) -1];
-    res.render("detailed-favo-page", {sessionPersonageFavoDetail});
+    if (req.session.userId){
+        const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
+        if (user){
+            const sessionPersonageFavoDetail: Personage = user.sessionPersonages[parseInt(req.params.id) -1];
+            res.render("detailed-favo-page", {sessionPersonageFavoDetail});
+        }
+    } else {
+        res.redirect("sign-up");
+    }
 });
 
 app.get("/log-in", async (req, res) => {
     res.render("log-in");
 });
 
-app.post("/login", async (req, res) => {
+app.post("/log-in", async (req, res) => {
     const uName = req.body.username;
     const password = req.body.password;
 
@@ -139,10 +170,12 @@ app.post("/login", async (req, res) => {
         const user = profiles.find((profile) => profile.username === uName);
         if (user) {
             if (user.password === password) {
+                req.session.userId = user.id;
+                sessionPersonages = user.sessionPersonages;
                 res.redirect("/fortnite-landingpage");
             }
             else {
-                res.render('login', {
+                res.render('log-in', {
                     profiles: profiles,
                     message: "Verkeerde wachtwoord!"
                 })
@@ -151,11 +184,16 @@ app.post("/login", async (req, res) => {
     }
 })
 
+app.get("/log-out", async(req, res) => {
+    req.session.destroy(() => res.redirect("log-in"));
+    sessionPersonages = [];
+});
+
 app.get("/sign-up", async (req, res) => {
     res.render("sign-up");
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/sign-up", async (req, res) => {
     const uName = req.body.newusername;
     const newEmail = req.body.newemail;
     const newpassword = req.body.newpassword;
@@ -166,13 +204,43 @@ app.post("/signup", async (req, res) => {
     let user: Profile;
 
     if (newpassword == confirmPassword && uName != "" && newEmail != "" && newpassword != "") {
-        nextId = profiles.length + 1;
+        nextId = (await client.db("Fortnitedb").collection("users").find<Profile>({}).toArray()).length + 1;
+
+        //nieuwe sessie personages aanmaken
+        const personagesJSON:any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=outfit&hasFeaturedImage=true")).json();
+        const personages: any[] = personagesJSON.data;
+        function selectRandomPersonages(array: any[], numPersonages: number): any[] {
+            const copiedArray = [...array];
+            for (let i = copiedArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copiedArray[i], copiedArray[j]] = [copiedArray[j], copiedArray[i]];
+            }
+            return copiedArray.slice(0, numPersonages);
+        }
+        const randomPersonages = selectRandomPersonages(personages, 20);
+        let idCount:number = 1;
+        randomPersonages.forEach((personage)=>{
+            let createPersonage:Personage ={
+                id:idCount,
+                naam:personage.name,
+                foto:personage.images.featured,
+                biografie:personage.description,
+                notities: "Schrijf notities...",
+                stats: [0,0],
+                gebruikteItems: ["",""]
+            }
+            sessionPersonages.push(createPersonage);
+            idCount++;
+        });
+
         user = {
-            id: nextId++,
+            id: nextId,
             username: uName,
             email: newEmail,
-            password: confirmPassword
+            password: confirmPassword,
+            sessionPersonages:sessionPersonages
         }
+
         profiles.push(user);
         client.db("Fortnitedb").collection("users").insertOne(user);
         res.redirect("/log-in");
@@ -186,30 +254,5 @@ app.get("/error-page", async (req, res) => {
 })
 
 app.listen(app.get("port"), async () => {
-    const personagesJSON:any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=outfit&hasFeaturedImage=true")).json();
-    const personages: any[] = personagesJSON.data;
-    function selectRandomPersonages(array: any[], numPersonages: number): any[] {
-        const copiedArray = [...array];
-        for (let i = copiedArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [copiedArray[i], copiedArray[j]] = [copiedArray[j], copiedArray[i]];
-        }
-        return copiedArray.slice(0, numPersonages);
-    }
-    const randomPersonages = selectRandomPersonages(personages, 20);
-    let idCount:number = 1;
-    randomPersonages.forEach((personage)=>{
-        let createPersonage:Personage ={
-            id:idCount,
-            naam:personage.name,
-            foto:personage.images.featured,
-            biografie:personage.description,
-            notities: "Schrijf notities...",
-            stats: [0,0],
-            gebruikteItems: ["",""]
-        }
-        sessionPersonages.push(createPersonage);
-        idCount++;
-    })
     console.log(`Local url: http://localhost:${app.get("port")}`);
 });
