@@ -12,7 +12,10 @@
         </div>
         <div class="buttons-container">
           <button>Avatar instellen</button>
-          <button>Favoriet toevoegen</button>
+          <form action="/favoriet-toevoegen" method="post">
+            <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
+            <button type="submit">Favoriet toevoegen</button>
+          </form>
           <button>Blacklisten</button>
           <div>
             <p>Geef hier je blacklist reden in:</p>

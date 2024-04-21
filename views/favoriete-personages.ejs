@@ -3,10 +3,10 @@
     <h2 class="page-title">Favoriete personages</h2>
     <p class="pagina-uitleg">Hier zijn al je favoriete personages. Kies er één om items, skins, wapens te veranderen en om te vechten.</p>
     <article class="personages">
-      <% sessionPersonages.forEach((sessionPersonage) => { %>
-        <a href="/detailed-favo-page/<%= sessionPersonage.id %>" class="personage">
-          <h4><%= sessionPersonage.naam %></h4>
-          <img src="<%= sessionPersonage.foto %>" class="personage-foto" />
+      <% favorietePersonages.forEach((favorietePersonage) => { %>
+        <a href="/detailed-favo-page/<%= favorietePersonage.id %>" class="personage">
+          <h4><%= favorietePersonage.naam %></h4>
+          <img src="<%= favorietePersonage.foto %>" class="personage-foto" />
         </a>
       <% }); %>
     </article>

@@ -47,7 +47,8 @@ interface Profile {
     username: string,
     email: string,
     password: string,
-    sessionPersonages:Personage[]
+    sessionPersonages:Personage[],
+    favorietePersonages:Personage[]
 }
 
 let profiles: Profile[] = [];
@@ -127,11 +128,24 @@ app.get("/favoriete-personages", async (req, res) => {
     if (req.session.userId){
         const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
         if (user){
-            res.render("favoriete-personages", {sessionPersonages:user.sessionPersonages});
+            res.render("favoriete-personages", {favorietePersonages:user.favorietePersonages});
         }
     } else {
         res.redirect("sign-up");
     }
+});
+
+app.post("/favoriet-toevoegen", async(req,res) => {
+    const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
+    let favorietePersonage:Personage = JSON.parse(req.body.favorietePersonage);
+    if (user){
+        favorietePersonage.id = user?.favorietePersonages.length + 1;
+    }
+    await client.db("Fortnitedb").collection("users").updateOne(
+        { id: req.session.userId },
+        { $addToSet: {favorietePersonages: favorietePersonage} }
+    );
+    res.redirect("avatar-kiezen");
 });
 
 app.get("/detailed-favo-page/:id", async (req, res) => {
@@ -148,8 +162,8 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
     if (req.session.userId){
         const user:Profile|null = await client.db("Fortnitedb").collection("users").findOne<Profile>({id:req.session.userId});
         if (user){
-            const sessionPersonageFavoDetail: Personage = user.sessionPersonages[parseInt(req.params.id) -1];
-            res.render("detailed-favo-page", {sessionPersonageFavoDetail});
+            const favorietePersonageDetail: Personage = user.favorietePersonages[parseInt(req.params.id) -1];
+            res.render("detailed-favo-page", {favorietePersonageDetail});
         }
     } else {
         res.redirect("sign-up");
@@ -238,7 +252,8 @@ app.post("/sign-up", async (req, res) => {
             username: uName,
             email: newEmail,
             password: confirmPassword,
-            sessionPersonages:sessionPersonages
+            sessionPersonages:sessionPersonages,
+            favorietePersonages:[]
         }
 
         profiles.push(user);

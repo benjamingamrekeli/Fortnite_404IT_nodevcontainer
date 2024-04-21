@@ -1,16 +1,16 @@
 <%- include("partials/header") %>
 <section class="detailedfavo-personage">
-    <h2 class="page-title"><%= sessionPersonageFavoDetail.naam %></h2>
+    <h2 class="page-title"><%= favorietePersonageDetail.naam %></h2>
     <article class="favopersonage-detail-container">
       <div class="foto-en-tekst">
-        <img src="<%= sessionPersonageFavoDetail.foto %>"/>
+        <img src="<%= favorietePersonageDetail.foto %>"/>
         <h3>Achtergrondverhaal</h3>
         <p>
-          <%= sessionPersonageFavoDetail.biografie %>
+          <%= favorietePersonageDetail.biografie %>
         </p>
         <div class="desktop-notities">
           <h5>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"><%= sessionPersonageFavoDetail.notities %></textarea>
+          <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
         </div>
       </div>
       <div class="items-en-stats">
@@ -39,13 +39,13 @@
           </div>
           <h4>Gebruikte items</h4>
           <div class="gebruikte-items">
-            <img src="<%= sessionPersonageFavoDetail.gebruikteItems[0] %>" alt="">
-            <img src="<%= sessionPersonageFavoDetail.gebruikteItems[1] %>" alt="">
+            <img src="<%= favorietePersonageDetail.gebruikteItems[0] %>" alt="">
+            <img src="<%= favorietePersonageDetail.gebruikteItems[1] %>" alt="">
           </div>
         </div>
         <div class="mobiel-notities">
           <h4>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"><%= sessionPersonageFavoDetail.notities %></textarea>
+          <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
         </div>
         
         <div class="battles-en-stats">
@@ -60,8 +60,8 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><%= sessionPersonageFavoDetail.stats[0] %></td>
-                  <td><%= sessionPersonageFavoDetail.stats[1] %></td>
+                  <td><%= favorietePersonageDetail.stats[0] %></td>
+                  <td><%= favorietePersonageDetail.stats[1] %></td>
                 </tr>
               </tbody>
             </table>
