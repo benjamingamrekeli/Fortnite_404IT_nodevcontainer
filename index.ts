@@ -139,6 +139,18 @@ app.post("/blacklisten", async (req, res) => {
     res.redirect("blacklisted-personages");
 });
 
+//blacklisted personage verwijderen (werkt nog niet door foutmelding)
+app.post("/verwijderen", async (req, res) => {
+    const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
+    if (user) {
+        // await client.db("Fortnitedb").collection("users").updateOne(
+        //     { id: req.session.userId },
+        //     { $pull: { blacklistedPersonages: blacklistedPersonage } }
+        // );
+    }
+})
+
 
 app.get("/detailed-avatar-page/:id", async (req, res) => {
     if (req.session.userId) {
