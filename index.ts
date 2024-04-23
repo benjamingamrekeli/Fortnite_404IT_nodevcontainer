@@ -65,14 +65,6 @@ let clientConnection = async () => {
     }
 }
 
-// Tijdelijke profiel om te kunnen inloggen om frontend te bekijken bij aanpassingen
-// const profile1: Profile = {
-//     id: 1,
-//     username: "moben",
-//     email: "moben@gmail.com",
-//     password: "Moben123"
-// }
-
 app.get("/", async (req, res) => {
     res.render("projects-landingpage");
 });
@@ -86,16 +78,6 @@ app.get("/fortnite-landingpage", async (req, res) => {
 });
 
 app.get("/avatar-kiezen", async (req, res) => {
-    // const jsonTest:any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/Character_PrismParticle")).json();
-    // const personage1: Personage ={
-    //     id:1,
-    //     naam:"Test Personage",
-    //     foto: jsonTest.data.images.icon,
-    //     biografie: "test bio",
-    //     notities: "test notities",
-    //     stats: [5,7],
-    //     gebruikteItems:["",""]
-    // }
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
@@ -117,40 +99,38 @@ app.get("/blacklisted-personages", async (req, res) => {
 
 
 app.post("/blacklisten", async (req, res) => {
-    const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
+
     if (user) {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
+        user.sessionPersonages = user.sessionPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: {sessionPersonages: user.sessionPersonages }}
+        );
     }
+    
     await client.db("Fortnitedb").collection("users").updateOne(
         { id: req.session.userId },
         { $addToSet: { blacklistedPersonages: blacklistedPersonage } }
     );
 
-
-    // Ik probeer hier de blacklisted personage te verwijderen uit sessionpersoanges maar krijg telkens foutmelding!
-
-    // await client.db("Fortnitedb").collection("users").updateOne(
-    //     { id: req.session.userId },
-    //     { $pull: { sessionPersonages: blacklistedPersonage } }
-    // );
-
-
     res.redirect("blacklisted-personages");
 });
 
-//blacklisted personage verwijderen (werkt nog niet door foutmelding)
 app.post("/verwijderen", async (req, res) => {
-    const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
     if (user) {
-        // await client.db("Fortnitedb").collection("users").updateOne(
-        //     { id: req.session.userId },
-        //     { $pull: { blacklistedPersonages: blacklistedPersonage } }
-        // );
+        user.blacklistedPersonages = user.blacklistedPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: { blacklistedPersonages: user.blacklistedPersonages } }
+        );
     }
-})
-
+    res.redirect("blacklisted-personages");
+});
 
 app.get("/detailed-avatar-page/:id", async (req, res) => {
     if (req.session.userId) {
