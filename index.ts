@@ -37,7 +37,8 @@ interface Personage {
     biografie: string,
     notities: string,
     stats: number[],
-    gebruikteItems: string[]
+    gebruikteItems: string[],
+    reden: string
 }
 
 let sessionPersonages: Personage[] = [];
@@ -101,6 +102,7 @@ app.get("/blacklisted-personages", async (req, res) => {
 app.post("/blacklisten", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
+    let blacklistReden = req.body.blacklistReden;
 
     if (user) {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
@@ -111,14 +113,16 @@ app.post("/blacklisten", async (req, res) => {
         }
         await client.db("Fortnitedb").collection("users").updateOne(
             { id: req.session.userId },
-            { $set: {sessionPersonages: user.sessionPersonages }}
+            { $set: { sessionPersonages: user.sessionPersonages } }
         );
     }
-    
+
     await client.db("Fortnitedb").collection("users").updateOne(
         { id: req.session.userId },
         { $addToSet: { blacklistedPersonages: blacklistedPersonage } }
     );
+
+    let redennn = blacklistedPersonage.reden;
 
     res.redirect("blacklisted-personages");
 });
@@ -274,7 +278,8 @@ app.post("/sign-up", async (req, res) => {
                 biografie: personage.description,
                 notities: "Schrijf notities...",
                 stats: [0, 0],
-                gebruikteItems: ["", ""]
+                gebruikteItems: ["", ""],
+                reden: ""
             }
             sessionPersonages.push(createPersonage);
             idCount++;
