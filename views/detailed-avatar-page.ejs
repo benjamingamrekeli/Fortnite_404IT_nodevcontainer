@@ -19,11 +19,11 @@
           <form action="/blacklisten" method="post">
             <input type="hidden" name="blacklistedPersonage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
             <button type="submit">Blacklisten</button>
+            <div>
+              <p>Geef hier je blacklist reden in:</p>
+              <input class="blacklist-reden" type="text" name="blacklistReden">
+            </div>
           </form>
-          <div>
-            <p>Geef hier je blacklist reden in:</p>
-            <input class="blacklist-reden" type="text">
-          </div>
         </div>
       </div>
     </article>
