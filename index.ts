@@ -105,6 +105,10 @@ app.post("/blacklisten", async (req, res) => {
     if (user) {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
         user.sessionPersonages = user.sessionPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+        //id's in volgorde zetten
+        for(let i = 0; i<user.sessionPersonages.length; i++){
+            user.sessionPersonages[i].id = i+1;
+        }
         await client.db("Fortnitedb").collection("users").updateOne(
             { id: req.session.userId },
             { $set: {sessionPersonages: user.sessionPersonages }}
@@ -124,9 +128,18 @@ app.post("/verwijderen", async (req, res) => {
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
     if (user) {
         user.blacklistedPersonages = user.blacklistedPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+        user.sessionPersonages.push(blacklistedPersonage);
+        //id's in volgorde zetten
+        for(let i = 0; i<user.sessionPersonages.length; i++){
+            user.sessionPersonages[i].id = i+1;
+        }
         await client.db("Fortnitedb").collection("users").updateOne(
             { id: req.session.userId },
             { $set: { blacklistedPersonages: user.blacklistedPersonages } }
+        );
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: { sessionPersonages: user.sessionPersonages } }
         );
     }
     res.redirect("blacklisted-personages");
