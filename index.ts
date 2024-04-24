@@ -102,7 +102,7 @@ app.get("/blacklisted-personages", async (req, res) => {
 app.post("/blacklisten", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
-    let blacklistReden = req.body.blacklistReden;
+    blacklistedPersonage.reden = req.body.blacklistReden;
 
     if (user) {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
@@ -121,9 +121,6 @@ app.post("/blacklisten", async (req, res) => {
         { id: req.session.userId },
         { $addToSet: { blacklistedPersonages: blacklistedPersonage } }
     );
-
-    let redennn = blacklistedPersonage.reden;
-
     res.redirect("blacklisted-personages");
 });
 
@@ -186,16 +183,6 @@ app.post("/favoriet-toevoegen", async (req, res) => {
 });
 
 app.get("/detailed-favo-page/:id", async (req, res) => {
-    // const jsonTest:any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/Character_PrismParticle")).json();
-    // const personage1: Personage ={
-    //     id:1,
-    //     naam:"Test Personage",
-    //     foto: jsonTest.data.images.icon,
-    //     biografie: "test bio",
-    //     notities: "test notities",
-    //     stats: [5,7],
-    //     gebruikteItems:["",""]
-    // }
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
@@ -205,6 +192,25 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
     } else {
         res.redirect("sign-up");
     }
+});
+
+app.post("/win-lose/:id", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const fightResult = req.body.fightResult;
+    if (fightResult == "win"){
+        if (user){
+            user.favorietePersonages[parseInt(req.params.id)-1].stats[0]++;
+        }
+    } else if (fightResult == "lose"){
+        if (user){
+            user.favorietePersonages[parseInt(req.params.id)-1].stats[1]++;
+        }
+    }
+    await client.db("Fortnitedb").collection("users").updateOne(
+        { id: req.session.userId },
+        { $set: { favorietePersonages: user?.favorietePersonages } }
+    );
+    res.redirect(`/detailed-favo-page/${req.params.id}`);
 });
 
 app.get("/log-in", async (req, res) => {
@@ -277,7 +283,7 @@ app.post("/sign-up", async (req, res) => {
                 foto: personage.images.featured,
                 biografie: personage.description,
                 notities: "Schrijf notities...",
-                stats: [0, 0],
+                stats: [Math.floor(Math.random() * (8 - 0 + 1) + 0), Math.floor(Math.random() * (8 - 0 + 1) + 0)],
                 gebruikteItems: ["", ""],
                 reden: ""
             }

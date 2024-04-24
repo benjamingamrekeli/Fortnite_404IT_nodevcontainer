@@ -67,10 +67,24 @@
             </table>
           </div>
           <h4>Vechten</h4>
-          <div class="fight">
+          <!-- <div class="fight">
             <button class="win">Winnen</button>
             <button class="lose">Verliezen</button>
-          </div>
+          </div> -->
+          <div class="fight">
+            <form method="post" action="/win-lose/<%= favorietePersonageDetail.id %>">
+                <input type="hidden" id="fightResultInput" name="fightResult" value="">
+                <button class="win" onclick="setResult('win')">Winnen</button>
+                <button class="lose" onclick="setResult('lose')">Verliezen</button>
+            </form>
+            <script>
+              function setResult(result) {
+                  document.getElementById('fightResultInput').value = result;
+                  // Submit the form
+                  document.querySelector('form').submit();
+              }
+            </script>
+        </div>
         </div>
       </div>
     </article>

@@ -1,7 +1,7 @@
 <%- include("partials/header") %>
 <section class="avatar-kiezen">
     <h2 class="page-title">Avatar kiezen</h2>
-    <p class="pagina-uitleg">Klik een personage om meer details te zien. Je kunt die dan instellen als avatar, toevoegen aan je favorieten of blacklisten.</p>
+    <p class="pagina-uitleg">Klik op een personage om meer details te zien. Je kan die dan instellen als avatar, toevoegen aan jouw favorieten of blacklisten.</p>
     <article class="personages">
       <% sessionPersonages.forEach((sessionPersonage) => { %>
         <a href="/detailed-avatar-page/<%= sessionPersonage.id %>" class="personage">
