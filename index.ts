@@ -182,7 +182,7 @@ app.post("/favoriet-toevoegen", async (req, res) => {
     res.redirect("avatar-kiezen");
 });
 
-app.post("/favVerwijderen", async (req, res) => {
+app.post("/favoriet-verwijderen", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let favorietePersonage: Personage = JSON.parse(req.body.favorietePersonage);
     if (user) {

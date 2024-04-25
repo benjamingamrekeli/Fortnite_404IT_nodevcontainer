@@ -8,9 +8,9 @@
           <h4><%= favorietePersonage.naam %></h4>
           <img src="<%= favorietePersonage.foto %>" class="personage-foto" />
         </a>
-        <form action="/favVerwijderen" method="post">
+        <form action="/favoriet-verwijderen" method="post">
           <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(favorietePersonage) %>">
-          <button type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="favVerwijderen"></button>
+          <button type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="favoriet-verwijderen"></button>
         </form>
       <% }); %>
     </article>
