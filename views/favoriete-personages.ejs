@@ -8,6 +8,10 @@
           <h4><%= favorietePersonage.naam %></h4>
           <img src="<%= favorietePersonage.foto %>" class="personage-foto" />
         </a>
+        <form action="/favVerwijderen" method="post">
+          <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(favorietePersonage) %>">
+          <button type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="favVerwijderen"></button>
+        </form>
       <% }); %>
     </article>
   </section>

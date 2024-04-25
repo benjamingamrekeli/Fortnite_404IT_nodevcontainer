@@ -108,8 +108,8 @@ app.post("/blacklisten", async (req, res) => {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
         user.sessionPersonages = user.sessionPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
         //id's in volgorde zetten
-        for(let i = 0; i<user.sessionPersonages.length; i++){
-            user.sessionPersonages[i].id = i+1;
+        for (let i = 0; i < user.sessionPersonages.length; i++) {
+            user.sessionPersonages[i].id = i + 1;
         }
         await client.db("Fortnitedb").collection("users").updateOne(
             { id: req.session.userId },
@@ -131,8 +131,8 @@ app.post("/verwijderen", async (req, res) => {
         user.blacklistedPersonages = user.blacklistedPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
         user.sessionPersonages.push(blacklistedPersonage);
         //id's in volgorde zetten
-        for(let i = 0; i<user.sessionPersonages.length; i++){
-            user.sessionPersonages[i].id = i+1;
+        for (let i = 0; i < user.sessionPersonages.length; i++) {
+            user.sessionPersonages[i].id = i + 1;
         }
         await client.db("Fortnitedb").collection("users").updateOne(
             { id: req.session.userId },
@@ -182,6 +182,23 @@ app.post("/favoriet-toevoegen", async (req, res) => {
     res.redirect("avatar-kiezen");
 });
 
+app.post("/favVerwijderen", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    let favorietePersonage: Personage = JSON.parse(req.body.favorietePersonage);
+    if (user) {
+        user.favorietePersonages = user.favorietePersonages.filter(personage => personage.naam !== favorietePersonage.naam);
+        //id's in volgorde zetten
+        for (let i = 0; i < user.sessionPersonages.length; i++) {
+            user.sessionPersonages[i].id = i + 1;
+        }
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: { favorietePersonages: user.favorietePersonages } }
+        );
+    }
+    res.redirect("favoriete-personages");
+});
+
 app.get("/detailed-favo-page/:id", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
@@ -197,13 +214,13 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
 app.post("/win-lose/:id", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     const fightResult = req.body.fightResult;
-    if (fightResult == "win"){
-        if (user){
-            user.favorietePersonages[parseInt(req.params.id)-1].stats[0]++;
+    if (fightResult == "win") {
+        if (user) {
+            user.favorietePersonages[parseInt(req.params.id) - 1].stats[0]++;
         }
-    } else if (fightResult == "lose"){
-        if (user){
-            user.favorietePersonages[parseInt(req.params.id)-1].stats[1]++;
+    } else if (fightResult == "lose") {
+        if (user) {
+            user.favorietePersonages[parseInt(req.params.id) - 1].stats[1]++;
         }
     }
     await client.db("Fortnitedb").collection("users").updateOne(
