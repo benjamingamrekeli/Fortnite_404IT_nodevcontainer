@@ -510,7 +510,7 @@ button:hover {
 }
 
 .items img:hover {
-  transform: scale(1.2);
+  transform: scale(1.5);
 }
 
 .detailedfavo-personage {
@@ -522,9 +522,10 @@ button:hover {
 .battles-en-stats {
   margin-top: 5rem;
 }
-.skins,
-.wapens,
-.emotes {
+.backpacks,
+.pickaxes,
+.emotes,
+.gliders {
   margin-bottom: 2rem;
 }
 

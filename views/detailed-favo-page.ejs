@@ -16,26 +16,29 @@
       <div class="items-en-stats">
         
         <div class="items">
-          <h4>Skins</h4>
-          <div class="skins">
-            <img src="/images/skin1.webp" alt="Skin 1">
-            <img src="/images/skin2.webp" alt="Skin 2">
-            <img src="/images/skin3.webp" alt="Skin 3">
-            <img src="/images/skin4.webp" alt="Skin 4">
+          <h4>Backpacks</h4>
+          <div class="backpacks">
+            <% favorietePersonageDetail.backpacks.forEach(backpack=> { %>
+              <img src="<%= backpack %>" alt="Skin 1">
+            <% }); %>
           </div>
-          <h4>Wapens</h4>
-          <div class="wapens">
-            <img src="/images/weapon1.png" alt="Wapen 1">
-            <img src="/images/weapon2.png" alt="Wapen 2">
-            <img src="/images/weapon3.webp" alt="Wapen 3">
+          <h4>Pickaxes</h4>
+          <div class="pickaxes">
+            <% favorietePersonageDetail.pickaxes.forEach(pickaxe=> { %>
+              <img src="<%= pickaxe %>" alt="Skin 1">
+            <% }); %>
           </div>
           <h4>Emotes</h4>
           <div class="emotes">
-            <img src="/images/emote1.jpg" alt="Emote 1">
-            <img src="/images/emote2.jpg" alt="Emote 2">
-            <img src="/images/emote3.png" alt="Emote 3">
-            <img src="/images/emote4.webp" alt="Emote 4">
-            <img src="/images/emote5.webp" alt="Emote 5">
+            <% favorietePersonageDetail.emotes.forEach(emote=> { %>
+              <img src="<%= emote %>" alt="Skin 1">
+            <% }); %>
+          </div>
+          <h4>Gliders</h4>
+          <div class="gliders">
+            <% favorietePersonageDetail.gliders.forEach(glider=> { %>
+              <img src="<%= glider %>" alt="Skin 1">
+            <% }); %>
           </div>
           <h4>Gebruikte items</h4>
           <div class="gebruikte-items">

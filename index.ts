@@ -37,6 +37,10 @@ interface Personage {
     biografie: string,
     notities: string,
     stats: number[],
+    backpacks:string[],
+    pickaxes:string[],
+    emotes:string[],
+    gliders:string[],
     gebruikteItems: string[],
     reden: string
 }
@@ -282,18 +286,59 @@ app.post("/sign-up", async (req, res) => {
 
         //nieuwe sessie personages aanmaken
         const personagesJSON: any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=outfit&hasFeaturedImage=true")).json();
+        const backpacksJSON: any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=backpack")).json();
+        const pickaxesJSON: any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=pickaxe")).json();
+        const emotesJSON: any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=emote")).json();
+        const glidersJSON: any = await (await fetch("https://fortnite-api.com/v2/cosmetics/br/search/all?type=glider")).json();
         const personages: any[] = personagesJSON.data;
-        function selectRandomPersonages(array: any[], numPersonages: number): any[] {
+        const backpacks: any[] = backpacksJSON.data;
+        const pickaxes: any[] = pickaxesJSON.data;
+        const emotes: any[] = emotesJSON.data;
+        const gliders: any[] = glidersJSON.data;
+        // function selectRandomPersonages(array: any[], numPersonages: number): any[] {
+        //     const copiedArray = [...array];
+        //     for (let i = copiedArray.length - 1; i > 0; i--) {
+        //         const j = Math.floor(Math.random() * (i + 1));
+        //         [copiedArray[i], copiedArray[j]] = [copiedArray[j], copiedArray[i]];
+        //     }
+        //     return copiedArray.slice(0, numPersonages);
+        // }
+        function selectRandomItems(array: any[], numItems: number): any[] {
             const copiedArray = [...array];
             for (let i = copiedArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [copiedArray[i], copiedArray[j]] = [copiedArray[j], copiedArray[i]];
             }
-            return copiedArray.slice(0, numPersonages);
+            return copiedArray.slice(0, numItems);
         }
-        const randomPersonages = selectRandomPersonages(personages, 20);
+
+        const randomPersonages = selectRandomItems(personages, 20);
+        
         let idCount: number = 1;
         randomPersonages.forEach((personage) => {
+            const randomBackpacks = selectRandomItems(backpacks, 4);
+            const randomPickaxes = selectRandomItems(pickaxes, 5);
+            const randomEmotes = selectRandomItems(emotes, 3);
+            const randomGliders = selectRandomItems(gliders, 4);
+    
+            let randomBackpacksImages:string[] = [];
+            let randomPickaxesImages:string[] = [];
+            let randomEmotesImages:string[] = [];
+            let randomGlidersImages:string[] = [];
+    
+            randomBackpacks.forEach((randomBackpack)=>{
+                randomBackpacksImages.push(randomBackpack.images.icon);
+            });
+            randomPickaxes.forEach((randomPickaxe)=>{
+                randomPickaxesImages.push(randomPickaxe.images.icon);
+            });
+            randomEmotes.forEach((randomEmote)=>{
+                randomEmotesImages.push(randomEmote.images.icon);
+            });
+            randomGliders.forEach((randomGlider)=>{
+                randomGlidersImages.push(randomGlider.images.icon);
+            });
+
             let createPersonage: Personage = {
                 id: idCount,
                 naam: personage.name,
@@ -301,6 +346,10 @@ app.post("/sign-up", async (req, res) => {
                 biografie: personage.description,
                 notities: "Schrijf notities...",
                 stats: [Math.floor(Math.random() * (8 - 0 + 1) + 0), Math.floor(Math.random() * (8 - 0 + 1) + 0)],
+                backpacks: randomBackpacksImages,
+                pickaxes: randomPickaxesImages,
+                emotes: randomEmotesImages,
+                gliders: randomGlidersImages,
                 gebruikteItems: ["", ""],
                 reden: ""
             }
