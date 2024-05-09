@@ -34,6 +34,7 @@ interface Personage {
     id: number,
     naam: string,
     foto: string,
+    avatar:string,
     biografie: string,
     notities: string,
     stats: number[],
@@ -53,6 +54,7 @@ interface Profile {
     username: string,
     email: string,
     password: string,
+    avatar:string,
     sessionPersonages: Personage[],
     favorietePersonages: Personage[],
     blacklistedPersonages: Personage[]
@@ -75,8 +77,9 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/fortnite-landingpage", async (req, res) => {
+    const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     if (req.session.userId) {
-        res.render("fortnite-landingpage");
+        res.render("fortnite-landingpage", {user});
     } else {
         res.redirect("sign-up");
     }
@@ -86,17 +89,30 @@ app.get("/avatar-kiezen", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
-            res.render("avatar-kiezen", { sessionPersonages: user.sessionPersonages });
+            res.render("avatar-kiezen", { sessionPersonages: user.sessionPersonages, user });
         }
     } else {
         res.redirect("sign-up");
     }
 });
 
+app.post("/avatar-instellen", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const personage: Personage = JSON.parse(req.body.personage);
+    if (user) {
+        user.avatar = personage.avatar;
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: { avatar: user.avatar } }
+        );
+    }
+    res.redirect("avatar-kiezen");
+});
+
 app.get("/blacklisted-personages", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
-        res.render("blacklisted-personages", { blacklistedPersonages: user?.blacklistedPersonages });
+        res.render("blacklisted-personages", { blacklistedPersonages: user?.blacklistedPersonages, user });
     } else {
         res.redirect("sign-up");
     }
@@ -155,7 +171,7 @@ app.get("/detailed-avatar-page/:id", async (req, res) => {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
             const sessionPersonageAvatarDetail: Personage = user.sessionPersonages[parseInt(req.params.id) - 1];
-            res.render("detailed-avatar-page", { sessionPersonageAvatarDetail });
+            res.render("detailed-avatar-page", { sessionPersonageAvatarDetail, user });
         }
     } else {
         res.redirect("sign-up");
@@ -166,7 +182,7 @@ app.get("/favoriete-personages", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
-            res.render("favoriete-personages", { favorietePersonages: user.favorietePersonages });
+            res.render("favoriete-personages", { favorietePersonages: user.favorietePersonages, user });
         }
     } else {
         res.redirect("sign-up");
@@ -208,7 +224,7 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
         if (user) {
             const favorietePersonageDetail: Personage = user.favorietePersonages[parseInt(req.params.id) - 1];
-            res.render("detailed-favo-page", { favorietePersonageDetail });
+            res.render("detailed-favo-page", { favorietePersonageDetail, user });
         }
     } else {
         res.redirect("sign-up");
@@ -343,6 +359,7 @@ app.post("/sign-up", async (req, res) => {
                 id: idCount,
                 naam: personage.name,
                 foto: personage.images.featured,
+                avatar: personage.images.icon,
                 biografie: personage.description,
                 notities: "Schrijf notities...",
                 stats: [Math.floor(Math.random() * (8 - 0 + 1) + 0), Math.floor(Math.random() * (8 - 0 + 1) + 0)],
@@ -362,6 +379,7 @@ app.post("/sign-up", async (req, res) => {
             username: uName,
             email: newEmail,
             password: confirmPassword,
+            avatar: "/images/vraagteken.png",
             sessionPersonages: sessionPersonages,
             favorietePersonages: [],
             blacklistedPersonages: []

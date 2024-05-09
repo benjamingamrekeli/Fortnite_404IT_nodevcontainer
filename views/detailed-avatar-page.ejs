@@ -11,7 +11,10 @@
           </p>
         </div>
         <div class="buttons-container">
-          <button>Avatar instellen</button>
+          <form action="/avatar-instellen" method="post">
+            <input type="hidden" name="personage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
+            <button type="submit">Avatar instellen</button>
+          </form>
           <form action="/favoriet-toevoegen" method="post">
             <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
             <button type="submit">Favoriet toevoegen</button>
