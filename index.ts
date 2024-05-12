@@ -231,6 +231,28 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
     }
 });
 
+app.post("/gebruik-item/:id", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const item: string = req.body.item;
+
+    if(user){
+        console.log(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0]);
+        if(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] == "" ){
+            console.log("1");
+            user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] = item;
+        } else if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] == "" ) {
+            console.log("2");
+            user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] = item;
+        }
+    }
+    
+    await client.db("Fortnitedb").collection("users").updateOne(
+        { id: req.session.userId },
+        { $set: { favorietePersonages: user?.favorietePersonages } }
+    );
+    res.redirect(`/detailed-favo-page/${req.params.id}`);
+});
+
 app.post("/win-lose/:id", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     const fightResult = req.body.fightResult;
@@ -367,7 +389,7 @@ app.post("/sign-up", async (req, res) => {
                 pickaxes: randomPickaxesImages,
                 emotes: randomEmotesImages,
                 gliders: randomGlidersImages,
-                gebruikteItems: ["", ""],
+                gebruikteItems: ["",""],
                 reden: ""
             }
             sessionPersonages.push(createPersonage);

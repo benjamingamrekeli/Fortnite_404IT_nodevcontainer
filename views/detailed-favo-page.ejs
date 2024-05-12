@@ -18,27 +18,47 @@
         <div class="items">
           <h4>Backpacks</h4>
           <div class="backpacks">
-            <% favorietePersonageDetail.backpacks.forEach(backpack=> { %>
-              <img src="<%= backpack %>" alt="Skin 1">
-            <% }); %>
+            <% favorietePersonageDetail.backpacks.forEach((backpack, index) => { %>
+              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+                <input type="hidden" id="itemId<%= index %>" name="item" value="<%= backpack %>">
+                <button type="submit">
+                  <img src="<%= backpack %>" alt="Skin <%= index + 1 %>">
+                </button>
+              </form>
+              <% }); %>
           </div>
           <h4>Pickaxes</h4>
           <div class="pickaxes">
-            <% favorietePersonageDetail.pickaxes.forEach(pickaxe=> { %>
-              <img src="<%= pickaxe %>" alt="Skin 1">
-            <% }); %>
+            <% favorietePersonageDetail.pickaxes.forEach((pickaxe, index) => { %>
+              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+                <input type="hidden" id="itemId<%= index %>" name="item" value="<%= pickaxe %>">
+                <button type="submit">
+                  <img src="<%= pickaxe %>" alt="Skin <%= index + 1 %>">
+                </button>
+              </form>
+              <% }); %>
           </div>
           <h4>Emotes</h4>
           <div class="emotes">
-            <% favorietePersonageDetail.emotes.forEach(emote=> { %>
-              <img src="<%= emote %>" alt="Skin 1">
-            <% }); %>
+            <% favorietePersonageDetail.emotes.forEach((emote, index) => { %>
+              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+                <input type="hidden" id="itemId<%= index %>" name="item" value="<%= emote %>">
+                <button type="submit">
+                  <img src="<%= emote %>" alt="Skin <%= index + 1 %>">
+                </button>
+              </form>
+              <% }); %>
           </div>
           <h4>Gliders</h4>
           <div class="gliders">
-            <% favorietePersonageDetail.gliders.forEach(glider=> { %>
-              <img src="<%= glider %>" alt="Skin 1">
-            <% }); %>
+            <% favorietePersonageDetail.gliders.forEach((glider, index) => { %>
+              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+                <input type="hidden" id="itemId<%= index %>" name="item" value="<%= glider %>">
+                <button type="submit">
+                  <img src="<%= glider %>" alt="Skin <%= index + 1 %>">
+                </button>
+              </form>
+              <% }); %>
           </div>
           <h4>Gebruikte items</h4>
           <div class="gebruikte-items">
