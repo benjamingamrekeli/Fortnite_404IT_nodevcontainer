@@ -19,9 +19,9 @@
           <h4>Backpacks</h4>
           <div class="backpacks">
             <% favorietePersonageDetail.backpacks.forEach((backpack, index) => { %>
-              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+              <form class="hidden-form" method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="itemId<%= index %>" name="item" value="<%= backpack %>">
-                <button type="submit">
+                <button class="hidden-button" type="submit">
                   <img src="<%= backpack %>" alt="Skin <%= index + 1 %>">
                 </button>
               </form>
@@ -30,9 +30,9 @@
           <h4>Pickaxes</h4>
           <div class="pickaxes">
             <% favorietePersonageDetail.pickaxes.forEach((pickaxe, index) => { %>
-              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+              <form class="hidden-form" method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="itemId<%= index %>" name="item" value="<%= pickaxe %>">
-                <button type="submit">
+                <button class="hidden-button" type="submit">
                   <img src="<%= pickaxe %>" alt="Skin <%= index + 1 %>">
                 </button>
               </form>
@@ -41,9 +41,9 @@
           <h4>Emotes</h4>
           <div class="emotes">
             <% favorietePersonageDetail.emotes.forEach((emote, index) => { %>
-              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+              <form class="hidden-form" method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="itemId<%= index %>" name="item" value="<%= emote %>">
-                <button type="submit">
+                <button class="hidden-button" type="submit">
                   <img src="<%= emote %>" alt="Skin <%= index + 1 %>">
                 </button>
               </form>
@@ -52,9 +52,9 @@
           <h4>Gliders</h4>
           <div class="gliders">
             <% favorietePersonageDetail.gliders.forEach((glider, index) => { %>
-              <form method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
+              <form class="hidden-form" method="post" action="/gebruik-item/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="itemId<%= index %>" name="item" value="<%= glider %>">
-                <button type="submit">
+                <button class="hidden-button" type="submit">
                   <img src="<%= glider %>" alt="Skin <%= index + 1 %>">
                 </button>
               </form>
@@ -95,7 +95,7 @@
             <button class="lose">Verliezen</button>
           </div> -->
           <div class="fight">
-            <form method="post" action="/win-lose/<%= favorietePersonageDetail.id %>">
+            <form class="hidden-form" method="post" action="/win-lose/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="fightResultInput" name="fightResult" value="">
                 <button class="win" onclick="setResult('win')">Winnen</button>
                 <button class="lose" onclick="setResult('lose')">Verliezen</button>

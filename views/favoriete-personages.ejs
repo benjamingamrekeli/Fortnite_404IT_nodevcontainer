@@ -4,14 +4,16 @@
     <p class="pagina-uitleg">Hier zijn al je favoriete personages. Kies er één om items, skins, wapens te veranderen en om te vechten.</p>
     <article class="personages">
       <% favorietePersonages.forEach((favorietePersonage) => { %>
+        <div class="personage-container">
         <a href="/detailed-favo-page/<%= favorietePersonage.id %>" class="personage">
           <h4><%= favorietePersonage.naam %></h4>
           <img src="<%= favorietePersonage.foto %>" class="personage-foto" />
         </a>
-        <form action="/favoriet-verwijderen" method="post">
+        <form class="hidden-form" action="/favoriet-verwijderen" method="post">
           <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(favorietePersonage) %>">
-          <button type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="favoriet-verwijderen"></button>
+          <button class="hidden-button" type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="favoriet-verwijderen"></button>
         </form>
+      </div>
       <% }); %>
     </article>
   </section>

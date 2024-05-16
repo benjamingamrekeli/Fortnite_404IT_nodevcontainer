@@ -327,6 +327,23 @@ form {
   margin-top: 20px;
   margin-bottom: 50px;
 }
+.hidden-form {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 75px;
+  height: 75px;
+}
+
+.hidden-button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background:none;
+}
 
 label {
   display: block;
@@ -412,10 +429,6 @@ button:hover {
   margin-left: 30px;
 }
 
-.blacklisted-personages a:hover {
-  transform: scale(1.5);
-}
-
 .blacklist-buttons {
   display: grid;
   column-gap: 20px;
@@ -428,6 +441,12 @@ button:hover {
 .detailed-personage {
   display: flex;
   flex-direction: column;
+}
+
+.personage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .personage-detail-container {
@@ -456,17 +475,18 @@ button:hover {
 .buttons-container {
   display: grid;
   grid-template-columns: auto auto;
-  width: 50%
+  width: 50%;
 }
 
 .buttons-container button {
-  width: 80%;
-  height: 70%;
+  width: 200px;
+  height: 70px;
 }
 
 .blacklist-reden {
   margin-top: 10px;
   height: 40px;
+  width: 200px;
 }
 
 .personage-foto {
@@ -527,13 +547,14 @@ button:hover {
 .emotes,
 .gliders {
   margin-bottom: 2rem;
+  display: flex;
 }
 
 .stats {
   margin-bottom: 3rem;
 }
 
-.fight {
+.fight > form {
   display: grid;
   grid-template-columns: auto auto;
   height: 80px;
@@ -554,10 +575,12 @@ button:hover {
 
 .win {
   background-color: green;
+  width: 200px;
 }
 
 .lose {
   background-color: red;
+  width: 200px;
 }
 
 .favopersonage-detail-container {

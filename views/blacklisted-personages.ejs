@@ -12,13 +12,12 @@
           <div class="reden">
             <h3>Reden</h3>
             <p><%= blacklistedPersonage.reden %></p>
-            
         </div>
         <div class="blacklist-buttons">
             <button>Reden aanpassen</button>
-            <form action="/verwijderen" method="post">
+            <form class="hidden-form" action="/verwijderen" method="post">
               <input type="hidden" name="blacklistedPersonage" value="<%= JSON.stringify(blacklistedPersonage) %>">
-              <button type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="Verwijderen"></button>
+              <button class="hidden-button" type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="Verwijderen"></button>
             </form>
         </div>
         <% }); %>
