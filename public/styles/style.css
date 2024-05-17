@@ -670,6 +670,11 @@ p {
   line-height: 1.5rem;
 }
 
+.potlood {
+  max-width: 50px;
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 600px) {
   .desktop-links, .desktop-logout, .avatar{
     display: none;
