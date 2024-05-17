@@ -236,14 +236,26 @@ app.post("/gebruik-item/:id", async (req, res) => {
     const item: string = req.body.item;
 
     if(user){
-        console.log(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0]);
-        if(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] == "" ){
-            console.log("1");
+        if(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] == "/images/vraagteken.png" ){
             user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] = item;
-        } else if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] == "" ) {
-            console.log("2");
+        } else if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] == "/images/vraagteken.png" ) {
             user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] = item;
         }
+    }
+    
+    await client.db("Fortnitedb").collection("users").updateOne(
+        { id: req.session.userId },
+        { $set: { favorietePersonages: user?.favorietePersonages } }
+    );
+    res.redirect(`/detailed-favo-page/${req.params.id}`);
+});
+
+app.post("/verwijder-item/:id", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const item: number = parseInt(req.body.item);
+
+    if(user){
+        user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[item] = "/images/vraagteken.png";
     }
     
     await client.db("Fortnitedb").collection("users").updateOne(
@@ -389,7 +401,7 @@ app.post("/sign-up", async (req, res) => {
                 pickaxes: randomPickaxesImages,
                 emotes: randomEmotesImages,
                 gliders: randomGlidersImages,
-                gebruikteItems: ["",""],
+                gebruikteItems: ["/images/vraagteken.png","/images/vraagteken.png"],
                 reden: ""
             }
             sessionPersonages.push(createPersonage);

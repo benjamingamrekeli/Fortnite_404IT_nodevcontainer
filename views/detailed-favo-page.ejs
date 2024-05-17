@@ -62,8 +62,24 @@
           </div>
           <h4>Gebruikte items</h4>
           <div class="gebruikte-items">
-            <img src="<%= favorietePersonageDetail.gebruikteItems[0] %>" alt="">
-            <img src="<%= favorietePersonageDetail.gebruikteItems[1] %>" alt="">
+            <div class="gebruikte-item-container">
+              <form class="hidden-form" method="post" action="/verwijder-item/<%= favorietePersonageDetail.id %>">
+                <img src="<%= favorietePersonageDetail.gebruikteItems[0] %>" alt="">
+                <input type="hidden" id="itemId" name="item" value="0">
+                <button class="hidden-button" type="submit">
+                  <img class="trash-icon" src="/images/vuilbakje.png" alt="Verwijder">
+                </button>
+              </form>
+            </div>
+            <div class="gebruikte-item-container">
+              <form class="hidden-form" method="post" action="/verwijder-item/<%= favorietePersonageDetail.id %>">
+                <img src="<%= favorietePersonageDetail.gebruikteItems[1] %>" alt="">
+                <input type="hidden" id="itemId" name="item" value="1">
+                <button class="hidden-button" type="submit">
+                  <img class="trash-icon" src="/images/vuilbakje.png" alt="Verwijder">
+                </button>
+              </form>
+            </div>
           </div>
         </div>
         <div class="mobiel-notities">

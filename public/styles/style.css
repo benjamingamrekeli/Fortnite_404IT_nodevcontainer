@@ -533,6 +533,27 @@ button:hover {
   transform: scale(1.5);
 }
 
+.gebruikte-item-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 3px;
+}
+
+.trash-icon {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  padding: 5px;
+  display: none;
+  cursor: pointer;
+}
+.gebruikte-item-container:hover .trash-icon {
+  display: block;
+  max-width: 30px;
+  max-height: 30px;
+}
+
 .detailedfavo-personage {
   display: block;
   margin: 150px;
@@ -545,7 +566,8 @@ button:hover {
 .backpacks,
 .pickaxes,
 .emotes,
-.gliders {
+.gliders,
+.gebruikte-items {
   margin-bottom: 2rem;
   display: flex;
 }
