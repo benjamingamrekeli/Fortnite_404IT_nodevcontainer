@@ -26,6 +26,7 @@ app.use(session({
 declare module "express-session" {
     export interface SessionData {
         userId: number;
+        successMessage?: string;
     }
 }
 
@@ -34,14 +35,14 @@ interface Personage {
     id: number,
     naam: string,
     foto: string,
-    avatar:string,
+    avatar: string,
     biografie: string,
     notities: string,
     stats: number[],
-    backpacks:string[],
-    pickaxes:string[],
-    emotes:string[],
-    gliders:string[],
+    backpacks: string[],
+    pickaxes: string[],
+    emotes: string[],
+    gliders: string[],
     gebruikteItems: string[],
     reden: string
 }
@@ -54,7 +55,7 @@ interface Profile {
     username: string,
     email: string,
     password: string,
-    avatar:string,
+    avatar: string,
     sessionPersonages: Personage[],
     favorietePersonages: Personage[],
     blacklistedPersonages: Personage[]
@@ -79,7 +80,7 @@ app.get("/", async (req, res) => {
 app.get("/fortnite-landingpage", async (req, res) => {
     const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     if (req.session.userId) {
-        res.render("fortnite-landingpage", {user});
+        res.render("fortnite-landingpage", { user });
     } else {
         res.redirect("sign-up");
     }
@@ -235,14 +236,14 @@ app.post("/gebruik-item/:id", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     const item: string = req.body.item;
 
-    if(user){
-        if(user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] == "/images/vraagteken.png" ){
+    if (user) {
+        if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] == "/images/vraagteken.png") {
             user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[0] = item;
-        } else if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] == "/images/vraagteken.png" ) {
+        } else if (user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] == "/images/vraagteken.png") {
             user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[1] = item;
         }
     }
-    
+
     await client.db("Fortnitedb").collection("users").updateOne(
         { id: req.session.userId },
         { $set: { favorietePersonages: user?.favorietePersonages } }
@@ -254,10 +255,10 @@ app.post("/verwijder-item/:id", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     const item: number = parseInt(req.body.item);
 
-    if(user){
+    if (user) {
         user.favorietePersonages[parseInt(req.params.id) - 1].gebruikteItems[item] = "/images/vraagteken.png";
     }
-    
+
     await client.db("Fortnitedb").collection("users").updateOne(
         { id: req.session.userId },
         { $set: { favorietePersonages: user?.favorietePersonages } }
@@ -285,12 +286,20 @@ app.post("/win-lose/:id", async (req, res) => {
 });
 
 app.get("/log-in", async (req, res) => {
-    res.render("log-in");
+    const successMessage = req.session.successMessage;
+
+    req.session.successMessage = "";
+
+    res.render('log-in', {
+        profiles: profiles,
+        message: successMessage
+    });
 });
 
 app.post("/log-in", async (req, res) => {
     const uName = req.body.username;
     const password = req.body.password;
+
 
     profiles = await client.db("Fortnitedb").collection("users").find<Profile>({}).toArray();
 
@@ -363,29 +372,29 @@ app.post("/sign-up", async (req, res) => {
         }
 
         const randomPersonages = selectRandomItems(personages, 20);
-        
+
         let idCount: number = 1;
         randomPersonages.forEach((personage) => {
             const randomBackpacks = selectRandomItems(backpacks, 4);
             const randomPickaxes = selectRandomItems(pickaxes, 5);
             const randomEmotes = selectRandomItems(emotes, 3);
             const randomGliders = selectRandomItems(gliders, 4);
-    
-            let randomBackpacksImages:string[] = [];
-            let randomPickaxesImages:string[] = [];
-            let randomEmotesImages:string[] = [];
-            let randomGlidersImages:string[] = [];
-    
-            randomBackpacks.forEach((randomBackpack)=>{
+
+            let randomBackpacksImages: string[] = [];
+            let randomPickaxesImages: string[] = [];
+            let randomEmotesImages: string[] = [];
+            let randomGlidersImages: string[] = [];
+
+            randomBackpacks.forEach((randomBackpack) => {
                 randomBackpacksImages.push(randomBackpack.images.icon);
             });
-            randomPickaxes.forEach((randomPickaxe)=>{
+            randomPickaxes.forEach((randomPickaxe) => {
                 randomPickaxesImages.push(randomPickaxe.images.icon);
             });
-            randomEmotes.forEach((randomEmote)=>{
+            randomEmotes.forEach((randomEmote) => {
                 randomEmotesImages.push(randomEmote.images.icon);
             });
-            randomGliders.forEach((randomGlider)=>{
+            randomGliders.forEach((randomGlider) => {
                 randomGlidersImages.push(randomGlider.images.icon);
             });
 
@@ -401,7 +410,7 @@ app.post("/sign-up", async (req, res) => {
                 pickaxes: randomPickaxesImages,
                 emotes: randomEmotesImages,
                 gliders: randomGlidersImages,
-                gebruikteItems: ["/images/vraagteken.png","/images/vraagteken.png"],
+                gebruikteItems: ["/images/vraagteken.png", "/images/vraagteken.png"],
                 reden: ""
             }
             sessionPersonages.push(createPersonage);
@@ -419,11 +428,32 @@ app.post("/sign-up", async (req, res) => {
             blacklistedPersonages: []
         }
 
-        profiles.push(user);
-        client.db("Fortnitedb").collection("users").insertOne(user);
-        res.redirect("/log-in");
-    } else {
-        return res.status(404).send('Gebruiker niet gevonden');
+        profiles = await client.db("Fortnitedb").collection("users").find<Profile>({}).toArray();
+
+        let sameUsername = profiles.find((profile) => profile.username == user.username);
+        let sameEmail = profiles.find((profile) => profile.email == user.email);
+
+        if (sameUsername) {
+            res.render('sign-up', {
+                profiles: profiles,
+                message: "Account met deze gebruikersnaam bestaat al!"
+            })
+        } else if (sameEmail) {
+            res.render('sign-up', {
+                profiles: profiles,
+                message: "Account met deze email bestaat al!"
+            })
+        } else {
+            profiles.push(user);
+            client.db("Fortnitedb").collection("users").insertOne(user);
+            req.session.successMessage = "Account succesvol aangemaakt! U kunt nu inloggen."
+            req.session.save(() => res.redirect("/log-in"));
+        }
+    } else if (newpassword != confirmPassword) {
+        res.render('sign-up', {
+            profiles: profiles,
+            message: "Wachtwoorden kloppen niet!"
+        })
     }
 })
 

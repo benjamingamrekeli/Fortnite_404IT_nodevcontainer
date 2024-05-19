@@ -1,4 +1,7 @@
 <%- include("partials/guest-header") %>
+<% if (locals.message) { %>
+  <div class="message"><%= message %></div>
+  <% } %>
 <div class="signup-container">
     <h2 class="page-title">Registreren</h2>
     <form action="sign-up" method="post">
