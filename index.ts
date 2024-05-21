@@ -167,6 +167,14 @@ app.post("/verwijderen", async (req, res) => {
     res.redirect("blacklisted-personages");
 });
 
+app.post("/reden-aanpassen", async (req, res) => {
+    // let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    // let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
+    // if (user) {
+    //     res.redirect(`/detailed-avatar-page/${blacklistedPersonage.id}`);
+    // }
+});
+
 app.get("/detailed-avatar-page/:id", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
@@ -411,7 +419,7 @@ app.post("/sign-up", async (req, res) => {
                 emotes: randomEmotesImages,
                 gliders: randomGlidersImages,
                 gebruikteItems: ["/images/vraagteken.png", "/images/vraagteken.png"],
-                reden: ""
+                reden: "Geen reden toegevoegd"
             }
             sessionPersonages.push(createPersonage);
             idCount++;
