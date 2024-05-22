@@ -290,7 +290,44 @@ app.post("/win-lose/:id", async (req, res) => {
         { id: req.session.userId },
         { $set: { favorietePersonages: user?.favorietePersonages } }
     );
-    res.redirect(`/detailed-favo-page/${req.params.id}`);
+
+    if (user) {
+        if (user.favorietePersonages[parseInt(req.params.id) - 1].stats[0] * 3 <= user.favorietePersonages[parseInt(req.params.id) - 1].stats[1]) {
+            let blacklistedPersonage: Personage = user.favorietePersonages[parseInt(req.params.id) - 1];
+
+            if (user) {
+                blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
+                user.favorietePersonages = user.favorietePersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+                //id's favoriete persoanges in volgorde zetten
+                for (let i = 0; i < user.favorietePersonages.length; i++) {
+                    user.favorietePersonages[i].id = i + 1;
+                }
+
+                await client.db("Fortnitedb").collection("users").updateOne(
+                    { id: req.session.userId },
+                    { $set: { favorietePersonages: user.favorietePersonages } }
+                );
+
+                user.sessionPersonages = user.sessionPersonages.filter(personage => personage.naam !== blacklistedPersonage.naam);
+                //id's persoanges in volgorde zetten
+                for (let i = 0; i < user.sessionPersonages.length; i++) {
+                    user.sessionPersonages[i].id = i + 1;
+                }
+                await client.db("Fortnitedb").collection("users").updateOne(
+                    { id: req.session.userId },
+                    { $set: { sessionPersonages: user.sessionPersonages } }
+                );
+            }
+
+            await client.db("Fortnitedb").collection("users").updateOne(
+                { id: req.session.userId },
+                { $addToSet: { blacklistedPersonages: blacklistedPersonage } }
+            );
+            res.redirect("/blacklisted-personages");
+        } else {
+            res.redirect(`/detailed-favo-page/${req.params.id}`);
+        }
+    }
 });
 
 app.get("/log-in", async (req, res) => {
