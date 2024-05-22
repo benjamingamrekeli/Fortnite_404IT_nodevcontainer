@@ -11,7 +11,9 @@ h4 {
   font-size: xx-large;
 }
 h5 {
-  font-size: x-large;
+  font-family: "fortniteFont";
+  font-size: xx-large;
+  letter-spacing: 2px;
   margin-bottom: 0;
 }
 
@@ -337,6 +339,25 @@ form {
   height: 75px;
 }
 
+.hidden-form-notities {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 100%;
+}
+
+.hidden-form-notities textarea{
+  height: 100px;
+  border: #ff4081;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  background-color: #2a2a3f;
+}
+
 .hidden-button {
   border: none;
   padding: 0;
@@ -560,6 +581,10 @@ button:hover {
   margin-top: 0px;
 }
 
+.notitie {
+  width: 200px;
+}
+
 .battles-en-stats {
   margin-top: 5rem;
 }
@@ -660,6 +685,11 @@ td {
 .login-button:hover {
   transform: none;
   box-shadow: 0px 0px 10px white;
+}
+
+.opslaan-button {
+  width: 50%;
+  margin-top: 10px;
 }
 
 .vuilbakje {

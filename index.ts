@@ -240,6 +240,21 @@ app.get("/detailed-favo-page/:id", async (req, res) => {
     }
 });
 
+app.post("/notities-opslaan/:id", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const notities: string = req.body.notities;
+
+    if (user) {
+        user.favorietePersonages[parseInt(req.params.id) - 1].notities = notities;
+    }
+
+    await client.db("Fortnitedb").collection("users").updateOne(
+        { id: req.session.userId },
+        { $set: { favorietePersonages: user?.favorietePersonages } }
+    );
+    res.redirect(`/detailed-favo-page/${req.params.id}`);
+});
+
 app.post("/gebruik-item/:id", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     const item: string = req.body.item;

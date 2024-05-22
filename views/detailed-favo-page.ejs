@@ -10,7 +10,10 @@
         </p>
         <div class="desktop-notities">
           <h5>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
+          <form class="hidden-form-notities" action="/notities-opslaan/<%= favorietePersonageDetail.id %>" method="post">
+            <textarea name="notities" id="notities" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
+            <button class="opslaan-button" type="submit">Opslaan</button>
+          </form>
         </div>
       </div>
       <div class="items-en-stats">
@@ -84,7 +87,11 @@
         </div>
         <div class="mobiel-notities">
           <h4>Notities</h5>
-          <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
+          <form class="hidden-form" action="/notitie-opslaan" method="post">
+            <input type="text" name="notitie" value="<%= favorietePersonageDetail.notities %>">
+            <button class="opslaan-button" type="submit">Opslaan</button>
+          </form>
+          <!-- <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea> -->
         </div>
         
         <div class="battles-en-stats">
