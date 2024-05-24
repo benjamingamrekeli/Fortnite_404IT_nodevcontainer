@@ -513,7 +513,7 @@ button:hover {
 }
 
 .personage-foto {
-  width: 100%;
+  max-width: 100%;
   transition: transform 0.2s;
 }
 
@@ -561,6 +561,10 @@ button:hover {
   width: 80px;
   height: 80px;
   margin: 3px;
+}
+
+.gebruikte-item-container img {
+  max-width: 80px;
 }
 
 .trash-icon {
@@ -642,6 +646,7 @@ button:hover {
   max-width: 30vw;
 }
 
+
 .desktop-notities h5 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -649,10 +654,6 @@ button:hover {
 
 .mobiel-notities {
   display: none;
-}
-
-.detailedfavo-personage img {
-  max-width: 100%;
 }
 
 table {

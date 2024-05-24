@@ -3,7 +3,7 @@
     <h2 class="page-title"><%= favorietePersonageDetail.naam %></h2>
     <article class="favopersonage-detail-container">
       <div class="foto-en-tekst">
-        <img src="<%= favorietePersonageDetail.foto %>"/>
+        <img class="personage-foto" src="<%= favorietePersonageDetail.foto %>" />
         <h3>Biografie</h3>
         <p>
           <%= favorietePersonageDetail.biografie %>
@@ -11,7 +11,7 @@
         <div class="desktop-notities">
           <h5>Notities</h5>
           <form class="hidden-form-notities" action="/notities-opslaan/<%= favorietePersonageDetail.id %>" method="post">
-            <textarea name="notities" id="notities" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
+            <textarea class="fortnite-textarea" name="notities" id="notities" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
             <button class="opslaan-button" type="submit">Opslaan</button>
           </form>
         </div>
