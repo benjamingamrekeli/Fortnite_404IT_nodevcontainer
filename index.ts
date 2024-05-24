@@ -27,6 +27,7 @@ declare module "express-session" {
     export interface SessionData {
         userId: number;
         successMessage?: string;
+        isSuccess?: boolean | null;
     }
 }
 
@@ -123,7 +124,12 @@ app.get("/blacklisted-personages", async (req, res) => {
 app.post("/blacklisten", async (req, res) => {
     let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
     let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
-    blacklistedPersonage.reden = req.body.blacklistReden;
+
+    if (req.body.blacklistReden == "") {
+        blacklistedPersonage.reden = blacklistedPersonage.reden
+    } else {
+        blacklistedPersonage.reden = req.body.blacklistReden;
+    }
 
     if (user) {
         blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
@@ -347,12 +353,15 @@ app.post("/win-lose/:id", async (req, res) => {
 
 app.get("/log-in", async (req, res) => {
     const successMessage = req.session.successMessage;
+    const isSuccess = req.session.isSuccess;
 
     req.session.successMessage = "";
+    req.session.isSuccess = null;
 
     res.render('log-in', {
         profiles: profiles,
-        message: successMessage
+        message: successMessage,
+        isSuccess: isSuccess
     });
 });
 
@@ -372,11 +381,14 @@ app.post("/log-in", async (req, res) => {
                 res.redirect("/fortnite-landingpage");
             }
             else {
-                res.render('log-in', {
-                    profiles: profiles,
-                    message: "Verkeerde wachtwoord!"
-                })
+                req.session.successMessage = "Verkeerde wachtwoord!";
+                req.session.isSuccess = false;
+                res.redirect("/log-in");
             }
+        } else {
+            req.session.successMessage = "Gebruiker bestaat niet!";
+            req.session.isSuccess = false;
+            res.redirect("/log-in");
         }
     }
 })
@@ -387,7 +399,13 @@ app.get("/log-out", async (req, res) => {
 });
 
 app.get("/sign-up", async (req, res) => {
-    res.render("sign-up");
+    const successMessage = req.session.successMessage;
+
+    req.session.successMessage = "";
+
+    res.render("sign-up", {
+        message: successMessage
+    });
 });
 
 app.post("/sign-up", async (req, res) => {
@@ -494,26 +512,21 @@ app.post("/sign-up", async (req, res) => {
         let sameEmail = profiles.find((profile) => profile.email == user.email);
 
         if (sameUsername) {
-            res.render('sign-up', {
-                profiles: profiles,
-                message: "Account met deze gebruikersnaam bestaat al!"
-            })
+            req.session.successMessage = "Account met deze gebruikersnaam bestaat al!";
+            res.redirect("/sign-up");
         } else if (sameEmail) {
-            res.render('sign-up', {
-                profiles: profiles,
-                message: "Account met deze email bestaat al!"
-            })
+            req.session.successMessage = "Account met deze email bestaat al!";
+            res.redirect("/sign-up");
         } else {
             profiles.push(user);
             client.db("Fortnitedb").collection("users").insertOne(user);
-            req.session.successMessage = "Account succesvol aangemaakt! U kunt nu inloggen."
+            req.session.successMessage = "Account succesvol aangemaakt! U kunt nu inloggen.";
+            req.session.isSuccess = true;
             req.session.save(() => res.redirect("/log-in"));
         }
     } else if (newpassword != confirmPassword) {
-        res.render('sign-up', {
-            profiles: profiles,
-            message: "Wachtwoorden kloppen niet!"
-        })
+        req.session.successMessage = "Wachtwoorden komen niet overeen!";
+        res.redirect("/sign-up");
     }
 })
 
