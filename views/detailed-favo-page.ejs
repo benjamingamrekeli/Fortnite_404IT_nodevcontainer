@@ -86,12 +86,11 @@
           </div>
         </div>
         <div class="mobiel-notities">
-          <h4>Notities</h5>
-          <form class="hidden-form" action="/notitie-opslaan" method="post">
-            <input type="text" name="notitie" value="<%= favorietePersonageDetail.notities %>">
+          <h5>Notities</h5>
+          <form class="hidden-form-notities" action="/notities-opslaan/<%= favorietePersonageDetail.id %>" method="post">
+            <textarea class="fortnite-textarea" name="notities" id="notities" cols="40" rows="10"><%= favorietePersonageDetail.notities %></textarea>
             <button class="opslaan-button" type="submit">Opslaan</button>
           </form>
-          <!-- <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea> -->
         </div>
         
         <div class="battles-en-stats">
@@ -113,10 +112,6 @@
             </table>
           </div>
           <h4>Vechten</h4>
-          <!-- <div class="fight">
-            <button class="win">Winnen</button>
-            <button class="lose">Verliezen</button>
-          </div> -->
           <div class="fight">
             <form class="hidden-form" method="post" action="/win-lose/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="fightResultInput" name="fightResult" value="">
