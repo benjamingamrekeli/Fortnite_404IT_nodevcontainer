@@ -539,6 +539,10 @@ button:hover {
   margin-top: 10px;
 }
 
+.detailedfavo-personage img {
+  max-width: 100%;
+}
+
 .items {
   grid-area: "items";
 }
