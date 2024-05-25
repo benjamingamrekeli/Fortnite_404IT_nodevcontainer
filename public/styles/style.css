@@ -338,6 +338,25 @@ form {
   width: 75px;
   height: 75px;
 }
+.hidden-form-button {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 75px;
+  height: 75px;
+}
+
+.hidden-form-blacklist {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 75px;
+  height: 75px;
+}
 
 .hidden-form-notities {
   display: flex;
@@ -925,13 +944,16 @@ p {
   .reden-modal-content{
     width: 80%; /* Could be more or less, depending on screen size */
   }
-  .hidden-form {
+  .hidden-form-button {
+    width: 100%;
+  }
+  .hidden-form-blacklist {
     display: flex;
-    flex-direction: column;
     margin: 0;
     padding: 0;
+    width: 100%;
     border: none;
     background: none;
-    width: 80vw;
+    flex-direction: column;
   }
 }

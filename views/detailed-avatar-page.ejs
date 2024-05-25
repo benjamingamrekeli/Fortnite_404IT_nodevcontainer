@@ -11,15 +11,15 @@
           </p>
         </div>
         <div class="buttons-container">
-          <form class="hidden-form" action="/avatar-instellen" method="post">
+          <form class="hidden-form-button" action="/avatar-instellen" method="post">
             <input type="hidden" name="personage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
             <button type="submit">Avatar instellen</button>
           </form>
-          <form class="hidden-form" action="/favoriet-toevoegen" method="post">
+          <form class="hidden-form-button" action="/favoriet-toevoegen" method="post">
             <input type="hidden" name="favorietePersonage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
             <button type="submit">Favoriet toevoegen</button>
           </form>
-          <form class="hidden-form" action="/blacklisten" method="post">
+          <form class="hidden-form-blacklist" action="/blacklisten" method="post">
             <input type="hidden" name="blacklistedPersonage" value="<%= JSON.stringify(sessionPersonageAvatarDetail) %>">
             <button type="submit">Blacklisten</button>
             <div style="margin-left: 50px;">
