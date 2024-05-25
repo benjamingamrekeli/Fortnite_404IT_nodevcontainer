@@ -173,14 +173,7 @@ app.post("/verwijderen", async (req, res) => {
     res.redirect("blacklisted-personages");
 });
 
-app.post("/reden-aanpassen", async (req, res) => {
-    // let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
-    // let blacklistedPersonage: Personage = JSON.parse(req.body.blacklistedPersonage);
-    // if (user) {
-    //     res.redirect(`/detailed-avatar-page/${blacklistedPersonage.id}`);
-    // }
-});
-
+//haalt de detail avatar pagina op van een personage
 app.get("/detailed-avatar-page/:id", async (req, res) => {
     if (req.session.userId) {
         const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
@@ -259,6 +252,20 @@ app.post("/notities-opslaan/:id", async (req, res) => {
         { $set: { favorietePersonages: user?.favorietePersonages } }
     );
     res.redirect(`/detailed-favo-page/${req.params.id}`);
+});
+
+app.post("/reden-aanpassen/:id", async (req, res) => {
+    let user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const reden: string = req.body.reden;
+
+    if (user) {
+        user.blacklistedPersonages[parseInt(req.params.id) - 1].reden = reden;
+        await client.db("Fortnitedb").collection("users").updateOne(
+            { id: req.session.userId },
+            { $set: { blacklistedPersonages: user.blacklistedPersonages } }
+        );
+    }
+    res.redirect(`/blacklisted-personages`);
 });
 
 app.post("/gebruik-item/:id", async (req, res) => {
