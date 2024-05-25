@@ -1,6 +1,6 @@
 <%- include("partials/guest-header") %>
 <% if (locals.message) { %>
-<div class="success">Account succesvol aangemaakt! U kunt nu inloggen.</div>
+<div class="<%= isSuccess ? 'success' : 'message' %>"><%= message %></div>
 <% } %>
 <div class="login-container">
     <h2 class="page-title">Login</h2>
