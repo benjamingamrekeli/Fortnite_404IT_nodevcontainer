@@ -338,6 +338,25 @@ form {
   width: 75px;
   height: 75px;
 }
+.hidden-form-button {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 75px;
+  height: 75px;
+}
+
+.hidden-form-blacklist {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  width: 75px;
+  height: 75px;
+}
 
 .hidden-form-notities {
   display: flex;
@@ -347,11 +366,12 @@ form {
   border: none;
   background: none;
   width: 100%;
+  align-items: center;
 }
 
-.hidden-form-notities textarea{
+.fortnite-textarea {
   height: 100px;
-  border: #ff4081;
+  border-style: solid;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: large;
@@ -455,6 +475,7 @@ button:hover {
   column-gap: 20px;
   grid-template-areas: "aanpassen verwijderen";
   margin-top: 20px;
+  justify-content: center;
 }
 
 /* detailed page (moet nog aangepast worden)*/
@@ -511,7 +532,7 @@ button:hover {
 }
 
 .personage-foto {
-  width: 100%;
+  max-width: 100%;
   transition: transform 0.2s;
 }
 
@@ -537,6 +558,10 @@ button:hover {
   margin-top: 10px;
 }
 
+.detailedfavo-personage img {
+  max-width: 100%;
+}
+
 .items {
   grid-area: "items";
 }
@@ -559,6 +584,10 @@ button:hover {
   width: 80px;
   height: 80px;
   margin: 3px;
+}
+
+.gebruikte-item-container img {
+  max-width: 80px;
 }
 
 .trash-icon {
@@ -640,6 +669,7 @@ button:hover {
   max-width: 30vw;
 }
 
+
 .desktop-notities h5 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -647,10 +677,6 @@ button:hover {
 
 .mobiel-notities {
   display: none;
-}
-
-.detailedfavo-personage img {
-  max-width: 100%;
 }
 
 table {
@@ -720,6 +746,41 @@ p {
   border-radius: 5px;
   background-color: greenyellow;
   color: black;
+}
+
+.reden-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.reden-modal-content{
+  background-color:#191926;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
@@ -814,6 +875,9 @@ p {
   .vuilbakje {
     max-width: 70px;
   }
+  .potlood {
+    max-width: 70px;
+  }
   .personage-detail-container {
     grid-template-areas: ".";
     margin: 60px;
@@ -821,7 +885,12 @@ p {
   .personage-detail-container img {
     max-width: 100%;
   }
-
+  .win{
+    width: 180px;
+  }
+  .lose{
+    width: 180px;
+  }
   .foto-en-tekst p {
     margin-bottom: 20px;
   }
@@ -871,5 +940,20 @@ p {
   }
   .foto-en-tekst {
     max-width: 100%;
+  }
+  .reden-modal-content{
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  .hidden-form-button {
+    width: 100%;
+  }
+  .hidden-form-blacklist {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: none;
+    background: none;
+    flex-direction: column;
   }
 }

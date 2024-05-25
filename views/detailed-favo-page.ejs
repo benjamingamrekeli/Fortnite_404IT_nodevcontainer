@@ -3,7 +3,7 @@
     <h2 class="page-title"><%= favorietePersonageDetail.naam %></h2>
     <article class="favopersonage-detail-container">
       <div class="foto-en-tekst">
-        <img src="<%= favorietePersonageDetail.foto %>"/>
+        <img src="<%= favorietePersonageDetail.foto %>" />
         <h3>Biografie</h3>
         <p>
           <%= favorietePersonageDetail.biografie %>
@@ -11,7 +11,7 @@
         <div class="desktop-notities">
           <h5>Notities</h5>
           <form class="hidden-form-notities" action="/notities-opslaan/<%= favorietePersonageDetail.id %>" method="post">
-            <textarea name="notities" id="notities" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
+            <textarea class="fortnite-textarea" name="notities" id="notities" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea>
             <button class="opslaan-button" type="submit">Opslaan</button>
           </form>
         </div>
@@ -86,12 +86,11 @@
           </div>
         </div>
         <div class="mobiel-notities">
-          <h4>Notities</h5>
-          <form class="hidden-form" action="/notitie-opslaan" method="post">
-            <input type="text" name="notitie" value="<%= favorietePersonageDetail.notities %>">
+          <h5>Notities</h5>
+          <form class="hidden-form-notities" action="/notities-opslaan/<%= favorietePersonageDetail.id %>" method="post">
+            <textarea class="fortnite-textarea" name="notities" id="notities" cols="40" rows="10"><%= favorietePersonageDetail.notities %></textarea>
             <button class="opslaan-button" type="submit">Opslaan</button>
           </form>
-          <!-- <textarea name="" id="" cols="50" rows="10"><%= favorietePersonageDetail.notities %></textarea> -->
         </div>
         
         <div class="battles-en-stats">
@@ -113,10 +112,6 @@
             </table>
           </div>
           <h4>Vechten</h4>
-          <!-- <div class="fight">
-            <button class="win">Winnen</button>
-            <button class="lose">Verliezen</button>
-          </div> -->
           <div class="fight">
             <form class="hidden-form" method="post" action="/win-lose/<%= favorietePersonageDetail.id %>">
                 <input type="hidden" id="fightResultInput" name="fightResult" value="">
