@@ -3,54 +3,45 @@
     <h2 class="page-title">Blacklisted personages</h2>
     <p class="pagina-uitleg">Hier zijn al je blacklisted personages. Die zal je niet meer terugzien in je favorieten of bij het kiezen van andere personages. Je kunt ook kiezen om ze te verwijderen.</p>
     <article class="personages">
-      <div class="personage">
-        <% blacklistedPersonages.forEach((blacklistedPersonage) => { %>
+      <% blacklistedPersonages.forEach((blacklistedPersonage) => { %>
+        <div class="personage">
           <!-- Deze a href link moet niet -->
-          <!-- <a href="/detailed-favo-page/<%= blacklistedPersonage.id %>" class="personage">
+          <a href="/detailed-favo-page/<%= blacklistedPersonage.id %>" class="personage">
             <h4><%= blacklistedPersonage.naam %></h4>
             <img src="<%= blacklistedPersonage.foto %>" class="personage-foto" />
-          </a> -->
-          <h4><%= blacklistedPersonage.naam %></h4>
-          <img src="<%= blacklistedPersonage.foto %>" class="personage-foto" />
+          </a>
           <div class="reden">
             <h3>Reden</h3>
             <p><%= blacklistedPersonage.reden %></p>
-        </div>
-        <div class="blacklist-buttons">
-          
-          <button id="potloodButton" class="hidden-button" type="submit"><img class="potlood" src="/images/potlood.jpg" alt=""></button>
-          <div id="redenModal" class="reden-modal">
-            <div class="reden-modal-content">
-              <span class="close">&times;</span>
-              <form class="hidden-form-notities" action="/reden-aanpassen/<%= blacklistedPersonage.id %>" method="post">
-                <textarea class="fortnite-textarea" name="reden" id="reden" cols="40" rows="10"><%= blacklistedPersonage.reden %></textarea>
-                <button class="opslaan-button" type="submit">Opslaan</button>
-              </form>
+          </div>
+          <div class="blacklist-buttons">
+            <button id="potloodButton<%= blacklistedPersonage.id %>" class="hidden-button" type="button"><img class="potlood" src="/images/potlood.jpg" alt=""></button>
+            <div id="redenModal<%= blacklistedPersonage.id %>" class="reden-modal">
+              <div class="reden-modal-content">
+                <span class="close" onclick="document.getElementById('redenModal<%= blacklistedPersonage.id %>').style.display='none'">&times;</span>
+                <form class="hidden-form-notities" action="/reden-aanpassen/<%= blacklistedPersonage.id %>" method="post">
+                  <textarea class="fortnite-textarea" name="reden" id="reden" cols="40" rows="10"><%= blacklistedPersonage.reden %></textarea>
+                  <button class="opslaan-button" type="submit">Opslaan</button>
+                </form>
+              </div>
             </div>
+            <form class="hidden-form" action="/verwijderen" method="post">
+              <input type="hidden" name="blacklistedPersonage" value="<%= JSON.stringify(blacklistedPersonage) %>">
+              <button class="hidden-button" type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="Verwijderen"></button>
+            </form>
           </div>
           <script>
-            var modal = document.getElementById("redenModal");
-            var btn = document.getElementById("potloodButton");
-            var span = document.getElementsByClassName("close")[0];
-            btn.onclick = function() {
-                               modal.style.display = "block";
-                        }
-                        span.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+            document.getElementById("potloodButton<%= blacklistedPersonage.id %>").onclick = function() {
+              document.getElementById("redenModal<%= blacklistedPersonage.id %>").style.display = "block";
+            }
+            window.onclick = function(event) {
+              if (event.target == document.getElementById("redenModal<%= blacklistedPersonage.id %>")) {
+                document.getElementById("redenModal<%= blacklistedPersonage.id %>").style.display = "none";
+              }
+            }
           </script>
-          <form class="hidden-form" action="/verwijderen" method="post">
-            <input type="hidden" name="blacklistedPersonage" value="<%= JSON.stringify(blacklistedPersonage) %>">
-            <button class="hidden-button" type="submit"><img class="vuilbakje" src="/images/vuilbakje.png" alt="Verwijderen"></button>
-          </form>
         </div>
-        <% }); %>
-      </div>
+      <% }); %>
       </article>
   </section>
 <%- include("partials/footer") %>
