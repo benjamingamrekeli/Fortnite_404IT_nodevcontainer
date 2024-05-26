@@ -80,10 +80,15 @@ app.get("/", async (req, res) => {
 
 app.get("/fortnite-landingpage", async (req, res) => {
     const user: Profile | null = await client.db("Fortnitedb").collection("users").findOne<Profile>({ id: req.session.userId });
+    const successMessage = req.session.successMessage;
+
+    req.session.successMessage = "";
+
     if (req.session.userId) {
-        res.render("fortnite-landingpage", { user });
-    } else {
-        res.redirect("sign-up");
+        res.render("fortnite-landingpage", {
+            user: user,
+            message: successMessage
+        });
     }
 });
 
@@ -322,6 +327,7 @@ app.post("/win-lose/:id", async (req, res) => {
     if (user) {
         if (user.favorietePersonages[parseInt(req.params.id) - 1].stats[0] * 3 <= user.favorietePersonages[parseInt(req.params.id) - 1].stats[1]) {
             let blacklistedPersonage: Personage = user.favorietePersonages[parseInt(req.params.id) - 1];
+            blacklistedPersonage.reden = "Drie keer meer verloren dan gewonnen."
 
             if (user) {
                 blacklistedPersonage.id = user?.blacklistedPersonages.length + 1;
@@ -385,6 +391,7 @@ app.post("/log-in", async (req, res) => {
             if (user.password === password) {
                 req.session.userId = user.id;
                 sessionPersonages = user.sessionPersonages;
+                req.session.successMessage = `Welkom ${user.username}! U bent succesvol ingelogd.`;
                 res.redirect("/fortnite-landingpage");
             }
             else {

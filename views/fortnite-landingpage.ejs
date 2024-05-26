@@ -1,5 +1,7 @@
 <%- include("partials/header") %>
-
+<% if (locals.message) { %>
+  <div class="success"><%= message %></div>
+<% } %>
 <section class="fortnite-landingpage">
     <h2 class="page-title">Home</h2>
     <p class="pagina-uitleg" style="text-align: center;">Welkom! Maak een keuze:</p>
