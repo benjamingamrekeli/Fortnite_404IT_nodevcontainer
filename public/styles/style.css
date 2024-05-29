@@ -240,6 +240,13 @@ footer p {
   align-items: center;
 }
 
+.favoriete-personages {
+  margin-bottom: 38.3vh;
+}
+.blacklisted-personages {
+  margin-bottom: 34.8vh;
+}
+
 .personages {
   display: flex;
   flex-wrap: wrap;
